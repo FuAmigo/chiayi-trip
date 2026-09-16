@@ -233,82 +233,82 @@
             cursor: pointer;
         }
 
-        .info-group {
-            margin-bottom: 20px;
+        .btn-delete {
+            background: #f8d7da;
+            color: #721c24;
+            border: none;
+            padding: 9px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
         }
 
+        .info-group { margin-bottom: 20px; }
         .info-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--accent-brown);
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-size: 15px; font-weight: 700; margin-bottom: 10px;
+            color: var(--accent-brown); display: flex; align-items: center; gap: 6px;
         }
-
         .info-item {
-            background: white;
-            padding: 14px;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: white; padding: 14px; border-radius: 12px; margin-bottom: 8px;
+            border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;
         }
 
         .budget-summary {
-            background: var(--accent-green);
-            color: white;
-            padding: 20px;
-            border-radius: var(--radius);
-            margin-bottom: 20px;
-            text-align: center;
+            background: var(--accent-green); color: white; padding: 20px;
+            border-radius: var(--radius); margin-bottom: 20px; text-align: center;
         }
-
         .budget-summary h3 { font-size: 13px; opacity: 0.9; font-weight: 400; }
         .budget-summary div { font-size: 28px; font-weight: 700; margin-top: 4px; }
 
+        /* Floating Add Button */
+        .fab {
+            position: fixed; bottom: 80px; right: 20px; width: 52px; height: 52px;
+            background: var(--accent-brown); color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            cursor: pointer; z-index: 90;
+        }
+
         .nav-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            max-width: 480px;
-            background: white;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0 18px 0;
-            z-index: 100;
+            position: fixed; bottom: 0; width: 100%; max-width: 480px;
+            background: white; border-top: 1px solid var(--border-color);
+            display: flex; justify-content: space-around; padding: 10px 0 18px 0; z-index: 100;
         }
-
         .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 11px;
-            color: var(--text-sub);
-            cursor: pointer;
-            gap: 4px;
+            display: flex; flex-direction: column; align-items: center;
+            font-size: 11px; color: var(--text-sub); cursor: pointer; gap: 4px;
         }
+        .nav-item.active { color: var(--accent-green); font-weight: 700; }
+        .nav-item svg { width: 20px; height: 20px; fill: currentColor; }
 
-        .nav-item.active {
-            color: var(--accent-green);
-            font-weight: 700;
+        /* Modal 新增彈窗 */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); z-index: 200; justify-content: center; align-items: flex-end;
         }
-
-        .nav-item svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
+        .modal-content {
+            background: white; width: 100%; max-width: 480px;
+            border-radius: 20px 20px 0 0; padding: 24px; animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 12px; color: var(--text-sub); margin-bottom: 4px; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 10px; border: 1px solid var(--border-color);
+            border-radius: 8px; font-size: 14px; outline: none;
+        }
+        .btn-submit {
+            width: 100%; padding: 12px; background: var(--accent-green);
+            color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    <!-- 頂部 Header -->
     <header>
         <div class="header-title">
             <h1>嘉義漫旅 · 輕旅行</h1>
@@ -326,9 +326,7 @@
             <div class="date-tab" onclick="switchDay(2)">Day 2 (9/26)</div>
         </div>
 
-        <div id="card-container">
-            <!-- 動態渲染行程卡片 -->
-        </div>
+        <div id="card-container"></div>
     </section>
 
     <!-- Tab 2: 資訊與救援 Page -->
@@ -366,6 +364,10 @@
                 <a href="tel:052765041" style="color:var(--accent-brown); text-decoration:none; font-weight:bold;">05-2765041</a>
             </div>
         </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button onclick="resetData()" style="background: none; border: none; color: #aaa; text-decoration: underline; font-size: 12px;">重置為預設行程</button>
+        </div>
     </section>
 
     <!-- Tab 3: 記帳預算 Page -->
@@ -376,10 +378,11 @@
         </div>
 
         <div class="info-title">💸 行程費用明細</div>
-        <div id="expense-list">
-            <!-- 記帳明細動態生成 -->
-        </div>
+        <div id="expense-list"></div>
     </section>
+
+    <!-- Floating Add Button (網頁按＋號新增) -->
+    <div class="fab" onclick="openModal()">＋</div>
 
     <!-- 底部導覽列 -->
     <nav class="nav-bar">
@@ -398,75 +401,84 @@
     </nav>
 </div>
 
+<!-- 新增行程 Modal -->
+<div id="addModal" class="modal">
+    <div class="modal-content">
+        <h3 style="margin-bottom: 16px; font-size: 16px;">新增行程／記帳</h3>
+        <div class="form-group">
+            <label>天數</label>
+            <select id="input-day">
+                <option value="1">Day 1 (9/25)</option>
+                <option value="2">Day 2 (9/26)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>類型</label>
+            <select id="input-type">
+                <option value="spot">景點</option>
+                <option value="food">美食餐廳</option>
+                <option value="trans">交通</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>時間</label>
+            <input type="text" id="input-time" placeholder="例如：12:30">
+        </div>
+        <div class="form-group">
+            <label>地點 / 名稱</label>
+            <input type="text" id="input-title" placeholder="例如：阿宏師火雞肉飯">
+        </div>
+        <div class="form-group">
+            <label>亮點標籤 (以逗號隔開)</label>
+            <input type="text" id="input-tags" placeholder="例如：必吃美食, 必點菜單:火雞肉飯">
+        </div>
+        <div class="form-group">
+            <label>預計花費 (TWD)</label>
+            <input type="number" id="input-cost" placeholder="150">
+        </div>
+        <button class="btn-submit" onclick="addItinerary()">儲存至行程與記帳</button>
+        <button class="btn-submit" style="background:#CCC; margin-top:6px;" onclick="closeModal()">取消</button>
+    </div>
+</div>
+
 <script>
-    // ==========================================
-    // 📍【行程與費用資料庫】
-    // 若要新增/修改行程，直接在這裡編輯即可！
-    // ==========================================
-    const itineraryData = [
+    // 預設行程資料
+    const defaultData = [
         {
-            day: 1,
-            time: "14:00",
-            type: "spot", // 可選: spot(景點), food(美食), trans(交通)
-            title: "佐登妮絲城堡",
-            tags: [
-                {text: "歐洲巴洛克風宮殿", type: "gift"},
-                {text: "必買伴手禮: 精油保養品", type: "gift"}
-            ],
-            story: "全台最大巴洛克風格歐式城堡，擁有琦琦公主花園、克里斯松林與精油香氛體驗館。",
-            cost: 300 // 費用會自動算入「記帳預算」
+            id: 1, day: 1, time: "14:00", type: "spot", title: "佐登妮絲城堡",
+            tags: [{text: "歐洲巴洛克風宮殿", type: "gift"}, {text: "必買伴手禮: 精油保養品", type: "gift"}],
+            story: "全台最大巴洛克風格歐式城堡，擁有琦琦公主花園、克里斯松林與精油香氛體驗館。", cost: 300
         },
         {
-            day: 2,
-            time: "09:30",
-            type: "spot",
-            title: "臺南左鎮化石園區",
-            tags: [
-                {text: "全台唯一化石博物館", type: "gift"},
-                {text: "重要預約代號: FK-926", type: "code"}
-            ],
-            story: "整合原菜寮化石館，展出早坂犀牛、猛瑪象等豐富古生物化石。",
-            cost: 120
+            id: 2, day: 2, time: "09:30", type: "spot", title: "臺南左鎮化石園區",
+            tags: [{text: "全台唯一化石博物館", type: "gift"}, {text: "重要預約代號: FK-926", type: "code"}],
+            story: "整合原菜寮化石館，展出早坂犀牛、猛瑪象等豐富古生物化石。", cost: 120
         },
         {
-            day: 2,
-            time: "14:00",
-            type: "spot",
-            title: "嘉大昆蟲館",
-            tags: [
-                {text: "球體溫室花園", type: "gift"},
-                {text: "必買伴手禮: 昆蟲文創商品", type: "gift"}
-            ],
-            story: "擁有巨大的旋轉樓梯與溫室蝴蝶花園，展出上千種珍貴昆蟲標本。",
-            cost: 150
+            id: 3, day: 2, time: "14:00", type: "spot", title: "嘉大昆蟲館",
+            tags: [{text: "球體溫室花園", type: "gift"}, {text: "必買伴手禮: 昆蟲文創商品", type: "gift"}],
+            story: "擁有巨大的旋轉樓梯與溫室蝴蝶花園，展出上千種珍貴昆蟲標本。", cost: 150
         },
         {
-            day: 2,
-            time: "18:00",
-            type: "food",
-            title: "嘉義市海鮮碳烤",
-            tags: [
-                {text: "必吃美食: 炭烤海鮮", type: "food"},
-                {text: "必點菜單: 烤胡椒蝦、烤蛤蜊", type: "menu"}
-            ],
-            story: "嘉義在地熱門宵夜與聚餐選擇，新鮮現撈海鮮搭配特製醬汁炭烤。",
-            cost: 600
+            id: 4, day: 2, time: "18:00", type: "food", title: "嘉義市海鮮碳烤",
+            tags: [{text: "必吃美食: 炭烤海鮮", type: "food"}, {text: "必點菜單: 烤胡椒蝦、烤蛤蜊", type: "menu"}],
+            story: "嘉義在地熱門宵夜與聚餐選擇，新鮮現撈海鮮搭配特製醬汁炭烤。", cost: 600
         },
         {
-            day: 2,
-            time: "19:30",
-            type: "spot",
-            title: "2026嘉義市光織影舞 - 小熊維尼100週年",
-            tags: [
-                {text: "限定光影展覽", type: "gift"},
-                {text: "必買: 迪士尼授權紀念品", type: "gift"}
-            ],
-            story: "位於北香湖公園的年度戶外光影藝術展，結合迪士尼經典角色小熊維尼百週年主題。",
-            cost: 0
+            id: 5, day: 2, time: "19:30", type: "spot", title: "2026嘉義市光織影舞 - 小熊維尼100週年",
+            tags: [{text: "限定光影展覽", type: "gift"}, {text: "必買: 迪士尼授權紀念品", type: "gift"}],
+            story: "位於北香湖公園的年度戶外光影藝術展，結合迪士尼經典角色小熊維尼百週年主題。", cost: 0
         }
     ];
 
+    // 從手機 LocalStorage 載入資料
+    let itineraryData = JSON.parse(localStorage.getItem('my_chiayi_trip')) || defaultData;
     let currentDay = 1;
+
+    // 儲存至手機瀏覽器
+    function saveData() {
+        localStorage.setItem('my_chiayi_trip', JSON.stringify(itineraryData));
+    }
 
     // 渲染行程卡片
     function renderCards() {
@@ -483,7 +495,7 @@
         const filterData = itineraryData.filter(item => item.day === currentDay);
 
         if (filterData.length === 0) {
-            container.innerHTML = `<div style="text-align:center; color:var(--text-sub); padding:40px 0;">今日尚無安排行程</div>`;
+            container.innerHTML = `<div style="text-align:center; color:var(--text-sub); padding:40px 0;">今日尚無安排行程，請點擊右下角 ＋ 新增</div>`;
             return;
         }
 
@@ -503,9 +515,8 @@
                     <div class="tag-group">${tagsHTML}</div>
                     ${item.story ? `<div class="card-story">${item.story}</div>` : ''}
                     <div class="card-actions">
-                        <a href="${mapUrl}" target="_blank" class="btn-nav">
-                            🗺️ 開啟 Google Maps 導航
-                        </a>
+                        <a href="${mapUrl}" target="_blank" class="btn-nav">🗺️ 開啟 Google Maps 導航</a>
+                        <button class="btn-delete" onclick="deleteItem(${item.id})">刪除</button>
                     </div>
                 </div>
             `;
@@ -538,6 +549,59 @@
         document.getElementById('total-expense').innerText = `$ ${total.toLocaleString()}`;
     }
 
+    // 在網頁上按下「＋」後新增行程
+    function addItinerary() {
+        const day = parseInt(document.getElementById('input-day').value);
+        const type = document.getElementById('input-type').value;
+        const time = document.getElementById('input-time').value || "12:00";
+        const title = document.getElementById('input-title').value;
+        const rawTags = document.getElementById('input-tags').value;
+        const cost = parseInt(document.getElementById('input-cost').value) || 0;
+
+        if(!title) { alert('請輸入地點名稱'); return; }
+
+        let tags = [];
+        if(rawTags) {
+            tags = rawTags.split(',').map(t => ({ text: t.trim(), type: type === 'food' ? 'food' : 'gift' }));
+        }
+
+        const newItem = {
+            id: Date.now(),
+            day, time, type, title, tags, story: "在網頁隨手新增的行程", cost
+        };
+
+        itineraryData.push(newItem);
+        saveData(); // 寫入手機儲存空間
+
+        closeModal();
+        switchDay(day);
+        renderBudget();
+
+        document.getElementById('input-title').value = '';
+        document.getElementById('input-tags').value = '';
+        document.getElementById('input-cost').value = '';
+    }
+
+    // 刪除行程
+    function deleteItem(id) {
+        if(confirm('確定要刪除這個行程嗎？')) {
+            itineraryData = itineraryData.filter(item => item.id !== id);
+            saveData();
+            renderCards();
+            renderBudget();
+        }
+    }
+
+    // 重置資料
+    function resetData() {
+        if(confirm('確定要還原成最初的預設行程嗎？你新增的項目將會被清空。')) {
+            localStorage.removeItem('my_chiayi_trip');
+            itineraryData = [...defaultData];
+            renderCards();
+            renderBudget();
+        }
+    }
+
     function switchDay(day) {
         currentDay = day;
         document.querySelectorAll('.date-tab').forEach((tab, index) => {
@@ -553,6 +617,9 @@
         el.classList.add('active');
         if(tabName === 'budget') renderBudget();
     }
+
+    function openModal() { document.getElementById('addModal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('addModal').style.display = 'none'; }
 
     window.onload = function() {
         renderCards();
