@@ -530,7 +530,7 @@
 </div>
 
 <script>
-    // 預載你的行程資料
+    // 預載行程資料
     let itineraryData = [
         {
             day: 1,
@@ -599,12 +599,15 @@
     // 渲染行程卡片
     function renderCards() {
         const container = document.getElementById('card-container');
+        if (!container) return;
         container.innerHTML = '';
 
         // 更新天氣顯示
         const weatherEl = document.getElementById('weather-text');
-        if(currentDay === 1) weatherEl.innerText = "🌤️ 28°C 嘉義大林";
-        else weatherEl.innerText = "🌙 26°C 嘉義/臺南";
+        if(weatherEl) {
+            if(currentDay === 1) weatherEl.innerText = "🌤️ 28°C 嘉義大林";
+            else weatherEl.innerText = "🌙 26°C 嘉義/臺南";
+        }
 
         const filterData = itineraryData.filter(item => item.day === currentDay);
 
@@ -645,6 +648,7 @@
     // 渲染記帳
     function renderBudget() {
         const list = document.getElementById('expense-list');
+        if (!list) return;
         list.innerHTML = '';
         let total = 0;
 
@@ -721,7 +725,9 @@
     }
 
     // 初始渲染
-    renderCards();
+    window.onload = function() {
+        renderCards();
+    };
 </script>
 </body>
 </html>
