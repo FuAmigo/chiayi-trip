@@ -11,16 +11,16 @@
     
     <style>
         :root {
-            --bg-color: #F9F8F6; /* 溫潤和紙白 */
+            --bg-color: #F9F8F6;
             --card-bg: #FFFFFF;
-            --text-main: #2C2C2C; /* 墨黑 */
+            --text-main: #2C2C2C;
             --text-sub: #7A7A7A;
-            --accent-green: #6E7D62; /* 抹茶綠 */
-            --accent-brown: #9E836A; /* 木質棕 */
-            --tag-food: #D96B43; /* 必吃美食 - 朱赤 */
-            --tag-menu: #E09F3E; /* 必點菜單 - 山吹 */
-            --tag-gift: #52796F; /* 伴手禮 - 竹綠 */
-            --tag-code: #6B5B95; /* 預約碼 - 藤紫 */
+            --accent-green: #6E7D62;
+            --accent-brown: #9E836A;
+            --tag-food: #D96B43;
+            --tag-menu: #E09F3E;
+            --tag-gift: #52796F;
+            --tag-code: #6B5B95;
             --border-color: #EAE6E1;
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             --radius: 16px;
@@ -43,7 +43,6 @@
             overflow-x: hidden;
         }
 
-        /* App 容器模組 (模擬手機尺寸) */
         .app-container {
             width: 100%;
             max-width: 480px;
@@ -55,7 +54,6 @@
             padding-bottom: 90px;
         }
 
-        /* Header 頂部欄 */
         header {
             padding: 24px 20px 16px 20px;
             background: rgba(249, 248, 246, 0.95);
@@ -83,7 +81,6 @@
             margin-top: 2px;
         }
 
-        /* 天氣小工具 */
         .weather-badge {
             display: flex;
             align-items: center;
@@ -96,7 +93,6 @@
             font-weight: 500;
         }
 
-        /* 內容區塊 */
         .content-section {
             padding: 16px 20px;
             display: none;
@@ -112,7 +108,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 日期選擇器 Tab */
         .date-tabs {
             display: flex;
             gap: 10px;
@@ -143,7 +138,6 @@
             font-weight: 500;
         }
 
-        /* 行程卡片樣式 */
         .card {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -186,7 +180,6 @@
             color: var(--text-main);
         }
 
-        /* 標籤 Highlight */
         .tag-group {
             display: flex;
             flex-wrap: wrap;
@@ -240,7 +233,6 @@
             cursor: pointer;
         }
 
-        /* 資訊頁與記帳樣式 */
         .info-group {
             margin-bottom: 20px;
         }
@@ -278,26 +270,6 @@
         .budget-summary h3 { font-size: 13px; opacity: 0.9; font-weight: 400; }
         .budget-summary div { font-size: 28px; font-weight: 700; margin-top: 4px; }
 
-        /* Floating Add Button */
-        .fab {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 52px;
-            height: 52px;
-            background: var(--accent-brown);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            cursor: pointer;
-            z-index: 90;
-        }
-
-        /* 底部 Navigation Bar */
         .nav-bar {
             position: fixed;
             bottom: 0;
@@ -331,64 +303,6 @@
             height: 20px;
             fill: currentColor;
         }
-
-        /* Modal 新增彈窗 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4);
-            z-index: 200;
-            justify-content: center;
-            align-items: flex-end;
-        }
-
-        .modal-content {
-            background: white;
-            width: 100%;
-            max-width: 480px;
-            border-radius: 20px 20px 0 0;
-            padding: 24px;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        .form-group {
-            margin-bottom: 14px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            color: var(--text-sub);
-            margin-bottom: 4px;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 14px;
-            outline: none;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 12px;
-            background: var(--accent-green);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
@@ -401,19 +315,17 @@
             <p>CHIAYI TRIP GUIDE</p>
         </div>
         <div class="weather-badge">
-            <span id="weather-text">☀️ 28°C 晴朗</span>
+            <span id="weather-text">🌤️ 28°C 嘉義</span>
         </div>
     </header>
 
     <!-- Tab 1: 行程 Page -->
     <section id="page-itinerary" class="content-section active">
-        <!-- 天數切換 -->
         <div class="date-tabs">
             <div class="date-tab active" onclick="switchDay(1)">Day 1 (9/25)</div>
             <div class="date-tab" onclick="switchDay(2)">Day 2 (9/26)</div>
         </div>
 
-        <!-- 列表容器 -->
         <div id="card-container">
             <!-- 動態渲染行程卡片 -->
         </div>
@@ -459,18 +371,15 @@
     <!-- Tab 3: 記帳預算 Page -->
     <section id="page-budget" class="content-section">
         <div class="budget-summary">
-            <h3>預估與累積支出 (TWD)</h3>
+            <h3>預估與總支出金額 (TWD)</h3>
             <div id="total-expense">$ 0</div>
         </div>
 
-        <div class="info-title">💸 消費明細</div>
+        <div class="info-title">💸 行程費用明細</div>
         <div id="expense-list">
             <!-- 記帳明細動態生成 -->
         </div>
     </section>
-
-    <!-- Floating Add Button -->
-    <div class="fab" onclick="openModal()">＋</div>
 
     <!-- 底部導覽列 -->
     <nav class="nav-bar">
@@ -489,60 +398,23 @@
     </nav>
 </div>
 
-<!-- 新增行程 Modal -->
-<div id="addModal" class="modal">
-    <div class="modal-content">
-        <h3 style="margin-bottom: 16px; font-size: 16px;">新增行程</h3>
-        <div class="form-group">
-            <label>天數</label>
-            <select id="input-day">
-                <option value="1">Day 1 (9/25)</option>
-                <option value="2">Day 2 (9/26)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>類型</label>
-            <select id="input-type">
-                <option value="spot">景點</option>
-                <option value="food">美食餐廳</option>
-                <option value="trans">交通</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>時間</label>
-            <input type="text" id="input-time" placeholder="例如：11:30">
-        </div>
-        <div class="form-group">
-            <label>地點 / 名稱</label>
-            <input type="text" id="input-title" placeholder="例如：文化路夜市">
-        </div>
-        <div class="form-group">
-            <label>必點 / 必買 / 亮點標籤 (逗號分隔)</label>
-            <input type="text" id="input-tags" placeholder="必吃美食:御香屋, 必買:葡萄柚綠">
-        </div>
-        <div class="form-group">
-            <label>預計花費 (TWD)</label>
-            <input type="number" id="input-cost" placeholder="200">
-        </div>
-        <button class="btn-submit" onclick="addItinerary()">儲存至行程</button>
-        <button class="btn-submit" style="background:#CCC; margin-top:6px;" onclick="closeModal()">取消</button>
-    </div>
-</div>
-
 <script>
-    // 預載行程資料
-    let itineraryData = [
+    // ==========================================
+    // 📍【行程與費用資料庫】
+    // 若要新增/修改行程，直接在這裡編輯即可！
+    // ==========================================
+    const itineraryData = [
         {
             day: 1,
             time: "14:00",
-            type: "spot",
+            type: "spot", // 可選: spot(景點), food(美食), trans(交通)
             title: "佐登妮絲城堡",
             tags: [
                 {text: "歐洲巴洛克風宮殿", type: "gift"},
                 {text: "必買伴手禮: 精油保養品", type: "gift"}
             ],
-            story: "全台最大巴洛克風格歐式城堡，擁有琦琦公主花園、克里斯松林與精油香氛體驗館，拍照打卡絕佳熱點。",
-            cost: 300
+            story: "全台最大巴洛克風格歐式城堡，擁有琦琦公主花園、克里斯松林與精油香氛體驗館。",
+            cost: 300 // 費用會自動算入「記帳預算」
         },
         {
             day: 2,
@@ -553,7 +425,7 @@
                 {text: "全台唯一化石博物館", type: "gift"},
                 {text: "重要預約代號: FK-926", type: "code"}
             ],
-            story: "整合原菜寮化石館，展出早坂犀牛、猛瑪象等豐富古生物化石，互動設施豐富，極具教育與視覺震撼。",
+            story: "整合原菜寮化石館，展出早坂犀牛、猛瑪象等豐富古生物化石。",
             cost: 120
         },
         {
@@ -565,7 +437,7 @@
                 {text: "球體溫室花園", type: "gift"},
                 {text: "必買伴手禮: 昆蟲文創商品", type: "gift"}
             ],
-            story: "擁有巨大的旋轉樓梯與溫室蝴蝶花園，展出上千種珍貴昆蟲標本與活體模型，是拍照與知性之旅的好去處。",
+            story: "擁有巨大的旋轉樓梯與溫室蝴蝶花園，展出上千種珍貴昆蟲標本。",
             cost: 150
         },
         {
@@ -577,7 +449,7 @@
                 {text: "必吃美食: 炭烤海鮮", type: "food"},
                 {text: "必點菜單: 烤胡椒蝦、烤蛤蜊", type: "menu"}
             ],
-            story: "嘉義在地熱門宵夜與聚餐選擇，新鮮現撈海鮮搭配特製醬汁炭烤，香氣十足。",
+            story: "嘉義在地熱門宵夜與聚餐選擇，新鮮現撈海鮮搭配特製醬汁炭烤。",
             cost: 600
         },
         {
@@ -589,7 +461,7 @@
                 {text: "限定光影展覽", type: "gift"},
                 {text: "必買: 迪士尼授權紀念品", type: "gift"}
             ],
-            story: "位於北香湖公園的年度戶外光影藝術展，今年結合迪士尼經典角色小熊維尼百週年主題，夜間沉浸式燈光超浪漫！",
+            story: "位於北香湖公園的年度戶外光影藝術展，結合迪士尼經典角色小熊維尼百週年主題。",
             cost: 0
         }
     ];
@@ -602,7 +474,6 @@
         if (!container) return;
         container.innerHTML = '';
 
-        // 更新天氣顯示
         const weatherEl = document.getElementById('weather-text');
         if(weatherEl) {
             if(currentDay === 1) weatherEl.innerText = "🌤️ 28°C 嘉義大林";
@@ -612,17 +483,14 @@
         const filterData = itineraryData.filter(item => item.day === currentDay);
 
         if (filterData.length === 0) {
-            container.innerHTML = `<div style="text-align:center; color:var(--text-sub); padding:40px 0;">今日尚無安排行程，點擊右下角 ＋ 新增地點</div>`;
+            container.innerHTML = `<div style="text-align:center; color:var(--text-sub); padding:40px 0;">今日尚無安排行程</div>`;
             return;
         }
 
         filterData.forEach((item) => {
             let typeText = item.type === 'spot' ? '景點' : item.type === 'food' ? '美食' : '交通';
             let typeClass = item.type === 'spot' ? 'type-spot' : item.type === 'food' ? 'type-food' : 'type-trans';
-
             let tagsHTML = item.tags ? item.tags.map(t => `<span class="tag tag-${t.type}">${t.text}</span>`).join('') : '';
-            
-            // 導航鏈結 (Google Maps Deep Link)
             let mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title)}`;
 
             let cardHTML = `
@@ -670,7 +538,6 @@
         document.getElementById('total-expense').innerText = `$ ${total.toLocaleString()}`;
     }
 
-    // 切換天數
     function switchDay(day) {
         currentDay = day;
         document.querySelectorAll('.date-tab').forEach((tab, index) => {
@@ -679,52 +546,14 @@
         renderCards();
     }
 
-    // 切換 Tab
     function switchTab(tabName, el) {
         document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        
         document.getElementById(`page-${tabName}`).classList.add('active');
         el.classList.add('active');
-
         if(tabName === 'budget') renderBudget();
     }
 
-    // Modal 控制
-    function openModal() { document.getElementById('addModal').style.display = 'flex'; }
-    function closeModal() { document.getElementById('addModal').style.display = 'none'; }
-
-    // 手動新增行程
-    function addItinerary() {
-        const day = parseInt(document.getElementById('input-day').value);
-        const type = document.getElementById('input-type').value;
-        const time = document.getElementById('input-time').value || "12:00";
-        const title = document.getElementById('input-title').value;
-        const rawTags = document.getElementById('input-tags').value;
-        const cost = parseInt(document.getElementById('input-cost').value) || 0;
-
-        if(!title) { alert('請輸入地點名稱'); return; }
-
-        let tags = [];
-        if(rawTags) {
-            tags = rawTags.split(',').map(t => ({ text: t.trim(), type: type === 'food' ? 'food' : 'gift' }));
-        }
-
-        itineraryData.push({
-            day, time, type, title, tags, story: "自行新增的景點行程", cost
-        });
-
-        closeModal();
-        switchDay(day);
-        renderBudget();
-        
-        // 清空輸入
-        document.getElementById('input-title').value = '';
-        document.getElementById('input-tags').value = '';
-        document.getElementById('input-cost').value = '';
-    }
-
-    // 初始渲染
     window.onload = function() {
         renderCards();
     };
