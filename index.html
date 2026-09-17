@@ -1,790 +1,725 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>嘉義輕旅行隨身 App 🌿</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-color: #FDFBF7;
-      --card-bg: #FFFFFF;
-      --primary: #557153;
-      --primary-light: #E6EBE0;
-      --accent-warm: #E6A15C;
-      --text-main: #333333;
-      --text-sub: #7A7A7A;
-      --border-color: #F0EDE6;
-      
-      /* Distinct Tag Colors */
-      --tag-ticket-bg: #E8F1F5;
-      --tag-ticket-text: #316B83;
-      --tag-food-bg: #FCEAE6;
-      --tag-food-text: #D05A3F;
-      --tag-gift-bg: #FEF5ED;
-      --tag-gift-text: #C68B59;
-      
-      --radius-lg: 20px;
-      --radius-md: 12px;
-      --shadow: 0 4px 20px rgba(85, 113, 83, 0.08);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>嘉義三日遊小旅行 🎏</title>
+    <!-- Google Fonts: 圓潤日系字型 -->
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome 圖示庫 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #FAF6F0;
+            --card-bg: #FFFFFF;
+            --primary-pink: #F4BFBF;
+            --primary-green: #A8D8EA;
+            --primary-yellow: #FFD3B6;
+            --text-main: #555555;
+            --text-dark: #2C3E50;
+            --accent-red: #FF8B8B;
+            --tag-food: #FFEAA7;
+            --tag-spot: #D4A5A5;
+            --tag-buy: #81ECEC;
+            --border-radius: 18px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Zen Maru Gothic', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      padding-bottom: 84px;
-    }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-    .app-container {
-      width: 100%;
-      max-width: 480px;
-      padding: 16px;
-    }
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background: #FAF6F0;
+            min-height: 100vh;
+            padding-bottom: 90px;
+            position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.05);
+        }
 
-    /* App Header */
-    .app-header {
-      text-align: center;
-      padding: 12px 0 16px;
-    }
+        /* 標頭與天氣 */
+        .header {
+            padding: 24px 20px 12px;
+            background: #FAF6F0;
+            sticky: top;
+        }
 
-    .app-header h1 {
-      font-size: 22px;
-      color: var(--primary);
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
+        .header h1 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-    .app-header p {
-      font-size: 13px;
-      color: var(--text-sub);
-      margin-top: 4px;
-    }
+        .weather-card {
+            background: linear-gradient(135deg, #E3FDFD 0%, #FFE6E6 100%);
+            border-radius: var(--border-radius);
+            padding: 12px 16px;
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #4A5568;
+        }
 
-    /* Weather Widget */
-    .weather-card {
-      background: linear-gradient(135deg, #7D9D9C, #576F72);
-      color: white;
-      padding: 14px 18px;
-      border-radius: var(--radius-lg);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      box-shadow: var(--shadow);
-    }
+        .weather-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .weather-info .region {
-      font-size: 12px;
-      opacity: 0.9;
-    }
+        /* 頁籤選單 (Tab) */
+        .tab-content {
+            display: none;
+            padding: 0 20px;
+            animation: fadeIn 0.3s ease;
+        }
 
-    .weather-info .condition {
-      font-size: 16px;
-      font-weight: 700;
-      margin-top: 2px;
-    }
+        .tab-content.active {
+            display: block;
+        }
 
-    .weather-temp {
-      font-size: 26px;
-      font-weight: 700;
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    /* Tab Content Views */
-    .tab-content {
-      display: none;
-    }
+        /* 行程卡片 */
+        .day-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #4A5568;
+            margin: 16px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-    .tab-content.active {
-      display: block;
-    }
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: var(--shadow);
+            border: 2px solid #F0EABE;
+            transition: transform 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
 
-    /* Cards */
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      cursor: pointer;
-      position: relative;
-    }
+        .card:active {
+            transform: scale(0.98);
+        }
 
-    .card:active {
-      transform: scale(0.98);
-    }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
+        .type-badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
 
-    /* Category Badges */
-    .badge {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-weight: 700;
-    }
+        .badge-spot { background: #E2F0D9; color: #385723; }
+        .badge-food { background: #FFF2CC; color: #B25900; }
+        .badge-factory { background: #E8DFF5; color: #5B2C6F; }
 
-    .badge-spot { background: #E8F3E8; color: #3B6038; }
-    .badge-food { background: #FDE8E8; color: #A83838; }
-    .badge-party { background: #F3E8F8; color: #6B38A8; }
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
 
-    .card-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--text-main);
-      margin: 4px 0 6px 0;
-    }
+        .card-time {
+            font-size: 0.8rem;
+            color: #888;
+        }
 
-    .time-stay {
-      font-size: 12px;
-      color: var(--text-sub);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+        .nav-btn {
+            background: var(--primary-pink);
+            color: #FFF;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            box-shadow: 0 3px 8px rgba(244, 191, 191, 0.4);
+        }
 
-    /* Tags Group */
-    .tag-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
+        /* 標籤群組 */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
 
-    .tag {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-weight: 500;
-    }
+        .tag {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: #F0F0F0;
+            color: #666;
+        }
 
-    .tag-ticket { background: var(--tag-ticket-bg); color: var(--tag-ticket-text); }
-    .tag-food { background: var(--tag-food-bg); color: var(--tag-food-text); }
-    .tag-gift { background: var(--tag-gift-bg); color: var(--tag-gift-text); }
+        .tag-highlight {
+            background: #FFECEC;
+            color: var(--accent-red);
+            font-weight: 700;
+        }
 
-    /* Nav Button */
-    .nav-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      width: 100%;
-      padding: 10px 0;
-      background: var(--primary-light);
-      color: var(--primary);
-      border: none;
-      border-radius: var(--radius-md);
-      font-size: 13px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
+        /* 住宿分頁設計 */
+        .hotel-hero {
+            background: #FFF;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 2px solid #FFD3B6;
+            margin-top: 10px;
+        }
 
-    .nav-btn:active {
-      background: #D5E0CD;
-    }
+        .hotel-title {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
 
-    /* Hotel View */
-    .hotel-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
-    }
+        .facility-list {
+            list-style: none;
+            margin-top: 12px;
+        }
 
-    .hotel-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--primary);
-    }
+        .facility-list li {
+            font-size: 0.9rem;
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px dashed #EEE;
+        }
 
-    .hotel-address {
-      font-size: 13px;
-      color: var(--text-sub);
-      margin: 6px 0 16px 0;
-    }
+        /* 彈出視窗 (Modal) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.4);
+            display: none;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 1000;
+        }
 
-    .hotel-section {
-      margin-bottom: 18px;
-    }
+        .modal-card {
+            background: #FFF;
+            width: 100%;
+            max-width: 480px;
+            border-radius: 24px 24px 0 0;
+            padding: 24px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
 
-    .hotel-section h3 {
-      font-size: 15px;
-      color: var(--text-main);
-      margin-bottom: 8px;
-      border-left: 4px solid var(--primary);
-      padding-left: 8px;
-    }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
 
-    .hotel-section p, .hotel-section ul {
-      font-size: 13px;
-      color: #555;
-      line-height: 1.6;
-      list-style-position: inside;
-    }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
 
-    /* Bottom Navigation Bar */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 480px;
-      background: #FFFFFF;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0 12px;
-      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
-      z-index: 100;
-    }
+        .modal-close {
+            background: #F0F0F0;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+        }
 
-    .nav-item {
-      border: none;
-      background: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      color: var(--text-sub);
-      font-size: 11px;
-      cursor: pointer;
-      width: 25%;
-    }
+        .modal-body h4 {
+            color: var(--text-dark);
+            margin: 12px 0 6px;
+        }
 
-    .nav-item.active {
-      color: var(--primary);
-      font-weight: 700;
-    }
+        .modal-body p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #666;
+        }
 
-    .nav-icon {
-      font-size: 20px;
-    }
+        .blog-link {
+            display: inline-block;
+            margin-top: 16px;
+            color: #4A90E2;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
 
-    /* Bottom Sheet Modal */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      display: none;
-      justify-content: center;
-      align-items: flex-end;
-      z-index: 1000;
-      backdrop-filter: blur(3px);
-    }
+        /* 底部導覽列 (Bottom Nav) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: #FFFFFF;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0 16px;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+            border-radius: 20px 20px 0 0;
+            z-index: 999;
+        }
 
-    .modal-overlay.active {
-      display: flex;
-    }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #A0AEC0;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 20%;
+        }
 
-    .modal-content {
-      background: #FFFFFF;
-      width: 100%;
-      max-width: 480px;
-      border-top-left-radius: 24px;
-      border-top-right-radius: 24px;
-      padding: 24px 20px;
-      max-height: 82vh;
-      overflow-y: auto;
-      animation: slideUp 0.25s cubic-bezier(0, 0, 0.2, 1);
-    }
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
 
-    @keyframes slideUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 12px;
-    }
-
-    .modal-title {
-      font-size: 19px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .modal-close {
-      background: #F0F0F0;
-      border: none;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      font-size: 14px;
-      cursor: pointer;
-      color: #666;
-    }
-
-    .modal-body h4 {
-      font-size: 14px;
-      color: var(--primary);
-      margin: 14px 0 6px 0;
-    }
-
-    .modal-body p, .modal-body ul {
-      font-size: 13px;
-      color: var(--text-main);
-      line-height: 1.6;
-    }
-
-    .modal-body ul {
-      padding-left: 18px;
-    }
-  </style>
+        .nav-item.active {
+            color: var(--accent-red);
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="app-container">
-    <div class="app-header">
-      <h1>嘉義三日輕旅行 🌿</h1>
-      <p>2026/09/25 (五) - 09/27 (日)</p>
+<div class="app-container">
+    <!-- 標頭資訊 -->
+    <div class="header">
+        <h1>嘉義慢漫遊 🎏</h1>
+        <div class="weather-card">
+            <div class="weather-info">
+                <i class="fa-solid fa-cloud-sun fa-2x" style="color: #FFB84C;"></i>
+                <div>
+                    <strong id="weather-location">嘉義縣市</strong>
+                    <div style="font-size: 0.75rem;">晴時多雲 26°C - 31°C</div>
+                </div>
+            </div>
+            <div style="font-size: 0.75rem; text-align: right; color: #888;">降雨機率 10%<br>適合自駕</div>
+        </div>
     </div>
 
     <!-- DAY 1 -->
     <div id="day1" class="tab-content active">
-      <div class="weather-card">
-        <div class="weather-info">
-          <div class="region">彰化 / 雲林 / 嘉義</div>
-          <div class="condition">多雲時晴 🌤️</div>
+        <div class="day-title"><i class="fa-regular fa-calendar"></i> 9/25 (三) 彰化嘉義啟程</div>
+        
+        <div class="card" onclick="openModal('戶羽機關車園區', '彰化扇型車庫旁的鐵道主題園區，有可愛的小火車造景與文創市集。', '1-1.5 小時', '無 (部分設施另計)', '火車雞蛋糕', '鐵道主題紀念品', 'https://www.google.com/search?q=戶羽機關車園區+攻略')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-spot">親子景點</span>
+                    <div class="card-title">戶羽機關車園區</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=戶羽機關車園區" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag tag-highlight">必拍：迷你蒸汽小火車</span>
+                <span class="tag">免費入場</span>
+            </div>
         </div>
-        <div class="weather-temp">28°C</div>
-      </div>
 
-      <div class="card" onclick="openModal('spot1')">
-        <div class="card-header"><span class="badge badge-spot">景點</span></div>
-        <div class="card-title">戶羽機關車園區</div>
-        <div class="time-stay">⏱️ 建議停留：1 - 1.5 小時</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：免費參觀</span>
-          <span class="tag tag-gift">搭乘小火車</span>
+        <div class="card" onclick="openModal('溪湖阿秀羊肉爐', '彰化極具盛名的羊肉爐老店，藥膳湯頭濃郁清甜，羊肉肉質鮮嫩無腥味。', '1-1.5 小時', '約 $400-600/人', '中藥中將羊肉爐、白燙羊肉', '麵線', 'https://www.google.com/search?q=溪湖阿秀羊肉爐+美食攻略')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-food">在地美食</span>
+                    <div class="card-title">溪湖阿秀羊肉爐</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=溪湖阿秀羊肉爐" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag tag-highlight">必點：藥膳湯底＋麻油麵線</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=戶羽機關車園區" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
 
-      <div class="card" onclick="openModal('food1')">
-        <div class="card-header"><span class="badge badge-food">餐廳</span></div>
-        <div class="card-title">溪湖阿秀羊肉爐</div>
-        <div class="time-stay">⏱️ 建議停留：1 - 1.5 小時</div>
-        <div class="tag-group">
-          <span class="tag tag-food">必點：薑絲羊肉爐</span>
-          <span class="tag tag-food">必點：白切羊肉</span>
+        <div class="card" onclick="openModal('大同醬油黑金釀造館', '展覽醬油百年歷史的觀光工廠，園區有巨大的黑金醬油瓶造景與古早味體驗區。', '1 小時', '免費入場', '醬油冰淇淋', '黑豆蔭油、柳丁醬油', 'https://www.google.com/search?q=大同醬油黑金釀造館+介紹')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-factory">觀光工廠</span>
+                    <div class="card-title">大同醬油黑金釀造館</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=大同醬油黑金釀造館" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag tag-highlight">必買：古法手工醬油</span>
+                <span class="tag">室內避暑</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=溪湖阿秀羊肉爐" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
 
-      <div class="card" onclick="openModal('spot2')">
-        <div class="card-header"><span class="badge badge-spot">景點</span></div>
-        <div class="card-title">大同醬油黑金釀造館</div>
-        <div class="time-stay">⏱️ 建議停留：1 小時</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：免費</span>
-          <span class="tag tag-gift">必買：黑豆蔭油</span>
-          <span class="tag tag-food">必吃：醬油冰淇淋</span>
+        <div class="card" onclick="openModal('朝露魚舖觀光工廠', '以水產加工為主題，有可愛的日式風格展館與鮮魚販售區。', '1 小時', '免費入場', '現烤海鮮試吃', '冷凍急鮮魚貨、魚油', 'https://www.google.com/search?q=朝露魚舖觀光工廠')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-factory">觀光工廠</span>
+                    <div class="card-title">朝露魚舖</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=朝露魚舖" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag">日式造景</span>
+                <span class="tag">平價水產</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=大同醬油黑金釀造館" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
 
-      <div class="card" onclick="openModal('spot3')">
-        <div class="card-header"><span class="badge badge-spot">景點</span></div>
-        <div class="card-title">朝露魚舖</div>
-        <div class="time-stay">⏱️ 建議停留：45 分鐘</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：免費</span>
-          <span class="tag tag-gift">必買：急凍生鮮/鮭魚菲力</span>
+        <div class="card" onclick="openModal('欣欣國軍罐頭工廠', '懷舊感十足的國軍軍用罐頭觀光工廠，能買到市面上少見的羊肉爐罐頭與紅燒牛肉罐頭！', '45 分鐘', '免費入場', '無', '國軍豬肉罐頭、牛肉罐頭', 'https://www.google.com/search?q=欣欣國軍罐頭工廠+開箱')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-factory">特色採買</span>
+                    <div class="card-title">欣欣國軍罐頭工廠</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 45分鐘</div>
+                </div>
+                <a href="https://maps.google.com/?q=欣欣國軍罐頭工廠" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag tag-highlight">必買：軍用紅燒牛肉罐頭</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=朝露魚舖觀光工廠" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
 
-      <div class="card" onclick="openModal('spot4')">
-        <div class="card-header"><span class="badge badge-spot">景點</span></div>
-        <div class="card-title">欣欣國軍罐頭工廠</div>
-        <div class="time-stay">⏱️ 建議停留：45 分鐘</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：免費</span>
-          <span class="tag tag-gift">必買：紅燒牛肉罐頭</span>
+        <div class="card" onclick="openModal('佐登妮絲城堡', '巴洛克風格的超夢幻城堡園區，有華麗的噴泉、穹頂與歐式花園，非常適合拍照打卡。', '2 小時', '全票 $300 (可折抵消費)', '城堡下午茶', '精油保養品、香氛手作', 'https://www.google.com/search?q=佐登妮絲城堡+攻略')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-spot">熱門景點</span>
+                    <div class="card-title">佐登妮絲城堡</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 2小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=佐登妮絲城堡" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag tag-highlight">必拍：琦琦公主花園</span>
+                <span class="tag">網美打卡</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=欣欣生技食品" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
 
-      <div class="card" onclick="openModal('spot5')">
-        <div class="card-header"><span class="badge badge-spot">景點</span></div>
-        <div class="card-title">佐登妮絲城堡</div>
-        <div class="time-stay">⏱️ 建議停留：2 小時</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：全票 $200</span>
-          <span class="tag tag-gift">巴洛克城堡打卡</span>
+        <div class="card" onclick="openModal('王公館烤肉地點', '首日晚餐烤肉聚會地點，請點擊右側導航按鈕直達地點。', '2-3 小時', '無', '各式自備烤肉食材', '無', '')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-food">晚餐聚會</span>
+                    <div class="card-title">王公館烤肉地點</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 預計晚間活動</div>
+                </div>
+                <a href="https://maps.apple.com/maps?q=https://maps.app.goo.gl/m41qVkRCH8nQu5My7" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag tag-highlight">指定地點導航</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=佐登妮絲城堡" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
-
-      <div class="card" onclick="openModal('party1')">
-        <div class="card-header"><span class="badge badge-party">聚會</span></div>
-        <div class="card-title">王公館烤肉地點</div>
-        <div class="time-stay">⏱️ 建議停留：晚間歡聚時間</div>
-        <div class="tag-group">
-          <span class="tag tag-food">私人聚會烤肉</span>
-        </div>
-        <a href="https://maps.app.goo.gl/m41qVkRCH8nQu5My7" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟專屬導航</a>
-      </div>
     </div>
 
     <!-- DAY 2 -->
     <div id="day2" class="tab-content">
-      <div class="weather-card">
-        <div class="weather-info">
-          <div class="region">嘉義市區</div>
-          <div class="condition">晴時多雲 ☀️</div>
-        </div>
-        <div class="weather-temp">29°C</div>
-      </div>
+        <div class="day-title"><i class="fa-regular fa-calendar"></i> 9/26 (四) 嘉義市區文化藝文</div>
 
-      <div class="card" onclick="openModal('spot6')">
-        <div class="card-header"><span class="badge badge-spot">限定景點</span></div>
-        <div class="card-title">嘉義市光織影舞 - 小熊維尼100週年</div>
-        <div class="time-stay">⏱️ 建議停留：1.5 - 2 小時 (建議傍晚/夜間)</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：免費參觀</span>
-          <span class="tag tag-gift">維尼主題光影秀</span>
+        <div class="card" onclick="openModal('嘉義市光織影舞 - 小熊維尼100週年', '位於北香湖公園的年度光影藝術展，今年結合小熊維尼100週年主題，夜間夢幻光影超吸睛！', '1.5 小時', '免費參觀', '周邊市集小吃', '小熊維尼限定紀念品', 'https://www.google.com/search?q=嘉義市光織影舞')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-spot">限定活動</span>
+                    <div class="card-title">嘉義市光織影舞 (維尼100週年)</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                </div>
+                <a href="https://maps.app.goo.gl/ufukdYxcVPEUWVdC9" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag tag-highlight">必看：迪士尼夢幻主題光影</span>
+            </div>
         </div>
-        <a href="https://maps.app.goo.gl/ufukdYxcVPEUWVdC9" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟專屬導航</a>
-      </div>
 
-      <div class="card" onclick="openModal('spot7')">
-        <div class="card-header"><span class="badge badge-spot">景點</span></div>
-        <div class="card-title">嘉義市立博物館</div>
-        <div class="time-stay">⏱️ 建議停留：1 - 1.5 小時</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：全票 $50</span>
-          <span class="tag tag-gift">親子兒童體驗廳</span>
+        <div class="card" onclick="openModal('嘉義市立博物館', '展示嘉義交趾陶文化、阿里山森林鐵路歷史與在地地質特色的精緻博物館。', '1.5 小時', '全票 $50', '館內簡餐', '文創商品', 'https://www.google.com/search?q=嘉義市立博物館')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-spot">文藝展館</span>
+                    <div class="card-title">嘉義市立博物館</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=嘉義市立博物館" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag">冷氣室內</span>
+                <span class="tag">交趾陶展區</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=嘉義市立博物館" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
 
-      <div class="card" onclick="openModal('spot8')">
-        <div class="card-header"><span class="badge badge-spot">景點</span></div>
-        <div class="card-title">嘉大昆蟲館</div>
-        <div class="time-stay">⏱️ 建議停留：1.5 小時</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：全票 $150</span>
-          <span class="tag tag-gift">溫室球體花園</span>
+        <div class="card" onclick="openModal('嘉大昆蟲館', '擁有全台首座球型蝴蝶溫室，展出大量珍稀昆蟲標本與活體觸摸體驗區，適合親子同樂。', '1.5 小時', '全票 $150', '昆蟲主題冰品', '昆蟲玩具/模型', 'https://www.google.com/search?q=嘉大昆蟲館')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-spot">親子探索</span>
+                    <div class="card-title">嘉大昆蟲館</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=嘉大昆蟲館" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag tag-highlight">必拍：球型溫室蝴蝶花園</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=嘉大昆蟲館" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
 
-      <div class="card" onclick="openModal('spot9')">
-        <div class="card-header"><span class="badge badge-spot">景點</span></div>
-        <div class="card-title">愛木村地方文化館</div>
-        <div class="time-stay">⏱️ 建議停留：1 小時</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：$100 (可折50)</span>
-          <span class="tag tag-gift">木工DIY體驗</span>
+        <div class="card" onclick="openModal('愛木村地方文化館', '由老檜木製材廠轉型的觀光工廠，裡面充斥著檜木香氣，還有許多木製闖關遊戲。', '1.5 小時', '門票 $100 (可折抵50元)', '無', '檜木精油、木作DIY產品', 'https://www.google.com/search?q=愛木村地方文化館')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-factory">體驗工廠</span>
+                    <div class="card-title">愛木村地方文化館</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=愛木村地方文化館" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag">木工DIY</span>
+                <span class="tag">檜木香氣</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=愛木村地方文化館" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
 
-      <div class="card" onclick="openModal('food2')">
-        <div class="card-header"><span class="badge badge-food">餐廳</span></div>
-        <div class="card-title">體育館海鮮碳烤 / 1961海鮮碳烤</div>
-        <div class="time-stay">⏱️ 建議停留：1.5 - 2 小時</div>
-        <div class="tag-group">
-          <span class="tag tag-food">必點：招牌烤下巴</span>
-          <span class="tag tag-food">必點：胡椒蝦</span>
+        <div class="card" onclick="openModal('體育館海鮮碳烤', '嘉義當地極具代表性的熱炒碳烤店，食材新鮮、火候十足，適合多人聚餐。', '1.5 小時', '約 $300-500/人', '烤蚵、招牌烤肉串、炒水蓮', '無', 'https://www.google.com/search?q=體育館海鮮碳烤+菜單推薦')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-food">在地美食</span>
+                    <div class="card-title">體育館海鮮碳烤</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=體育館海鮮碳烤" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag tag-highlight">必點：海鮮碳烤類、古早味熱炒</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=嘉義體育館海鮮碳烤" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 導航至體育館碳烤</a>
-      </div>
+
+        <div class="card" onclick="openModal('1961海鮮碳烤', '深受在地人喜愛的平價熱炒，環境熱鬧，菜色選擇極多，海鮮新鮮度高。', '1.5 小時', '約 $300-500/人', '生魚片、碳烤風螺、胡椒蝦', '無', 'https://www.google.com/search?q=1961海鮮碳烤')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-food">在地美食</span>
+                    <div class="card-title">1961海鮮碳烤</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=1961海鮮碳烤" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag">平價宵夜</span>
+                <span class="tag">熱炒碳烤</span>
+            </div>
+        </div>
     </div>
 
     <!-- DAY 3 -->
     <div id="day3" class="tab-content">
-      <div class="weather-card">
-        <div class="weather-info">
-          <div class="region">嘉義中埔 / 水上</div>
-          <div class="condition">晴朗舒適 ☀️</div>
-        </div>
-        <div class="weather-temp">29°C</div>
-      </div>
+        <div class="day-title"><i class="fa-regular fa-calendar"></i> 9/27 (五) 中埔樂園與休閒體驗</div>
 
-      <div class="card" onclick="openModal('spot10')">
-        <div class="card-header"><span class="badge badge-spot">景點</span></div>
-        <div class="card-title">冷研碳索館</div>
-        <div class="time-stay">⏱️ 建議停留：1.5 小時</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：全票 $200 (可折抵)</span>
-          <span class="tag tag-gift">乾冰瀑布秀</span>
+        <div class="card" onclick="openModal('冷研碳索館', '全台首座二氧化碳主題觀光工廠，有酷炫的乾冰瀑布表演與實驗 DIY，夏天非常消暑。', '1.5 小時', '全票 $200 (可折抵消費)', '乾冰汽水、泡泡氣泡水', '氣泡水機、DIY組合', 'https://www.google.com/search?q=冷研碳索館')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-factory">觀光工廠</span>
+                    <div class="card-title">冷研碳索館</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=冷研碳索館" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag tag-highlight">必看：乾冰瀑布秀</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=冷研碳索館" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
 
-      <div class="card" onclick="openModal('spot11')">
-        <div class="card-header"><span class="badge badge-spot">景點</span></div>
-        <div class="card-title">欣欣水泥森活園觀光工廠</div>
-        <div class="time-stay">⏱️ 建議停留：1 - 1.5 小時</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：全票 $100</span>
-          <span class="tag tag-gift">水泥盆栽DIY</span>
+        <div class="card" onclick="openModal('欣欣水泥森活園觀光工廠', '利用舊水泥廠改建的工業風主題園區，有球池體驗、水泥DIY與水泥車造景。', '1.5 小時', '門票 $100', '水泥盆栽手作', '水泥質感文創商品', 'https://www.google.com/search?q=欣欣水泥森活園')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-factory">體驗工廠</span>
+                    <div class="card-title">欣欣水泥森活園觀光工廠</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=欣欣水泥森活園觀光工廠" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag">親子手作</span>
+                <span class="tag">工業風打卡</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=欣欣水泥森活園觀光工廠" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
 
-      <div class="card" onclick="openModal('spot12')">
-        <div class="card-header"><span class="badge badge-spot">景點 / 美食</span></div>
-        <div class="card-title">中埔穀倉農創園區</div>
-        <div class="time-stay">⏱️ 建議停留：1 小時</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：免費參觀</span>
-          <span class="tag tag-food">穀倉星巴克</span>
-          <span class="tag tag-gift">必買：農特產伴手禮</span>
+        <div class="card" onclick="openModal('中埔穀倉農創園區', '由舊穀倉改造的休閒園區，內有超紅的綠意星巴克與文創市集，拍照氣氛極佳。', '1-1.5 小時', '免門票參觀', '星巴克限定飲品、穀倉大餅', '農特產伴手禮、阿里山茶', 'https://www.google.com/search?q=中埔穀倉農創園區')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-spot">網美休閒</span>
+                    <div class="card-title">中埔穀倉農創園區</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=中埔穀倉農創園區" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag tag-highlight">必去：穀倉星巴克</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=中埔穀倉農創園區" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
 
-      <div class="card" onclick="openModal('spot13')">
-        <div class="card-header"><span class="badge badge-spot">親子景點</span></div>
-        <div class="card-title">萌寵村親子樂園 (嘉義中埔)</div>
-        <div class="time-stay">⏱️ 建議停留：1.5 - 2 小時</div>
-        <div class="tag-group">
-          <span class="tag tag-ticket">門票：約 $150-$200</span>
-          <span class="tag tag-gift">水豚/羊駝互動</span>
+        <div class="card" onclick="openModal('萌寵村親子樂園(嘉義中埔)', '最新開幕的可愛動物園區，可以近距離餵食水豚、水豚君、羊駝等萌寵，深受小朋友喜愛。', '2 小時', '約 $150-200', '園區簡餐、動物造型冰品', '可愛動物周邊', 'https://www.google.com/search?q=萌寵村親子樂園+嘉義')">
+            <div class="card-header">
+                <div>
+                    <span class="type-badge badge-spot">親子樂園</span>
+                    <div class="card-title">萌寵村親子樂園</div>
+                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 2小時</div>
+                </div>
+                <a href="https://maps.google.com/?q=萌寵村親子樂園+嘉義中埔" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+            </div>
+            <div class="tags">
+                <span class="tag tag-highlight">必玩：餵食水豚與草泥馬</span>
+            </div>
         </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=萌寵村親子樂園+嘉義中埔" target="_blank" class="nav-btn" onclick="event.stopPropagation()">🧭 開啟導航</a>
-      </div>
     </div>
 
-    <!-- HOTEL TAB -->
+    <!-- HOTEL INFO -->
     <div id="hotel" class="tab-content">
-      <div class="hotel-card">
-        <div class="hotel-title">夏禾國際行舘</div>
-        <div class="hotel-address">📍 嘉義市西區大華路50號</div>
-        <a href="https://www.google.com/maps/search/?api=1&query=夏禾國際行舘" target="_blank" class="nav-btn" style="margin-bottom: 20px;">🧭 開啟飯店導航</a>
+        <div class="day-title"><i class="fa-solid fa-hotel"></i> 住宿資訊</div>
+        
+        <div class="hotel-hero">
+            <div class="hotel-title">夏禾國際行舘</div>
+            <p style="font-size: 0.85rem; color: #666;"><i class="fa-solid fa-location-dot"></i> 嘉義市西區大華路50號</p>
+            <a href="https://maps.google.com/?q=夏禾國際行舘" target="_blank" class="nav-btn" style="margin-top: 10px; display: inline-flex;"><i class="fa-solid fa-location-arrow"></i> 開啟地圖導航</a>
+            
+            <h4 style="margin-top: 18px; color: var(--text-dark);">館內設施與服務</h4>
+            <ul class="facility-list">
+                <li><i class="fa-solid fa-wifi" style="color: #70A1FF;"></i> 全館免費高速度 Wi-Fi</li>
+                <li><i class="fa-solid fa-square-parking" style="color: #70A1FF;"></i> 免費專屬地下與平面停車場 (自駕友善)</li>
+                <li><i class="fa-solid fa-utensils" style="color: #70A1FF;"></i> 附設中西式自助早餐餐廳</li>
+                <li><i class="fa-solid fa-bell" style="color: #70A1FF;"></i> 24小時前台接待與行李寄放</li>
+            </ul>
 
-        <div class="hotel-section">
-          <h3>🏨 館內設施與服務</h3>
-          <p>• 24小時接待大廳與行李寄放服務<br>• 全館提供免費高速 Wi-Fi<br>• 附設專屬停車場（自駕旅客停車方便）</p>
+            <h4 style="margin-top: 18px; color: var(--text-dark);">周邊設施 (步行/車程5分鐘)</h4>
+            <ul class="facility-list">
+                <li><i class="fa-solid fa-store" style="color: #FF6B6B;"></i> 7-11 / 全家超商 (步行 3 分鐘)</li>
+                <li><i class="fa-solid fa-bag-shopping" style="color: #FF6B6B;"></i> 家樂福夜市 (車程約 5 分鐘)</li>
+                <li><i class="fa-solid fa-prescriptions-bottle-medical" style="color: #FF6B6B;"></i> 連鎖藥局與連鎖超市 (步行可達)</li>
+            </ul>
         </div>
-
-        <div class="hotel-section">
-          <h3>🍳 早餐與餐飲</h3>
-          <p>• <b>活力自助早餐：</b>每日提供中西式複合餐點，包含在地熱炒、粥品、麵包與咖啡飲料。</p>
-        </div>
-
-        <div class="hotel-section">
-          <h3>😋 周邊在地美食與便利性</h3>
-          <p>• <b>超商：</b>步行約 3 分鐘即可抵達全家與 7-11。<br>• <b>阿宏師火雞肉飯：</b>車程約 7 分鐘（必點：雞肉片飯+半熟蛋）。<br>• <b>源興御香屋：</b>車程約 10 分鐘（必點：葡萄柚綠茶）。<br>• <b>文化路夜市：</b>車程約 8-10 分鐘，宵夜首選！</p>
-        </div>
-      </div>
     </div>
 
-  </div>
-
-  <!-- Bottom Navigation -->
-  <div class="bottom-nav">
-    <button class="nav-item active" onclick="switchTab('day1', this)">
-      <span class="nav-icon">🍡</span>
-      <span>9/25 (五)</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('day2', this)">
-      <span class="nav-icon">🐻</span>
-      <span>9/26 (六)</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('day3', this)">
-      <span class="nav-icon">🦙</span>
-      <span>9/27 (日)</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('hotel', this)">
-      <span class="nav-icon">🏨</span>
-      <span>住宿資訊</span>
-    </button>
-  </div>
-
-  <!-- Bottom Sheet Modal -->
-  <div id="modalOverlay" class="modal-overlay" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <div class="modal-header">
-        <div class="modal-title" id="mTitle">詳細攻略</div>
-        <button class="modal-close" onclick="closeModal()">✕</button>
-      </div>
-      <div class="modal-body" id="mBody">
-        <!-- Dynamic Content -->
-      </div>
+    <!-- 底部導覽列 -->
+    <div class="bottom-nav">
+        <button class="nav-item active" onclick="switchTab('day1', this)">
+            <i class="fa-solid fa-calendar-day"></i>Day 1
+        </button>
+        <button class="nav-item" onclick="switchTab('day2', this)">
+            <i class="fa-solid fa-calendar-day"></i>Day 2
+        </button>
+        <button class="nav-item" onclick="switchTab('day3', this)">
+            <i class="fa-solid fa-calendar-day"></i>Day 3
+        </button>
+        <button class="nav-item" onclick="switchTab('hotel', this)">
+            <i class="fa-solid fa-bed"></i>住宿
+        </button>
     </div>
-  </div>
+</div>
 
-  <script>
-    function switchTab(tabId, btnElement) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-      
-      document.getElementById(tabId).classList.add('active');
-      btnElement.classList.add('active');
-      window.scrollTo(0, 0);
+<!-- 彈出式 Modal -->
+<div class="modal-overlay" id="infoModal" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation();">
+        <div class="modal-header">
+            <h3 id="modalTitle" style="color: var(--text-dark);">景點名稱</h3>
+            <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <h4><i class="fa-solid fa-book-open" style="color: var(--primary-pink);"></i> 景點介紹</h4>
+            <p id="modalDesc">介紹內容...</p>
+            
+            <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <div><strong>停留時間：</strong><span id="modalTime"></span></div>
+                <div><strong>門票/價位：</strong><span id="modalTicket"></span></div>
+            </div>
+
+            <h4 style="margin-top: 12px;"><i class="fa-solid fa-utensils" style="color: #FFB84C;"></i> 必點 / 必吃美食</h4>
+            <p id="modalFood" style="color: var(--accent-red); font-weight: 700;"></p>
+
+            <h4 style="margin-top: 12px;"><i class="fa-solid fa-gift" style="color: #81ECEC;"></i> 必買伴手禮</h4>
+            <p id="modalBuy"></p>
+
+            <a id="modalBlog" href="#" target="_blank" class="blog-link"><i class="fa-solid fa-magnifying-glass"></i> 在 Google 搜尋在地人推薦與詳細攻略 →</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 切換 Tab
+    function switchTab(tabId, btn) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+        window.scrollTo(0, 0);
     }
 
-    const modalData = {
-      'spot1': {
-        title: '戶羽機關車園區',
-        story: '鄰近彰化扇形車庫，以鐵道文化為主題打造的休閒園區，充滿濃濃懷舊日式鐵道風情。',
-        tickets: '<b>免費參觀</b>',
-        guide: '適合拍照散步，園區內可自費搭乘復古小火車（約 $50/人），還能近距離觀賞火車運作。',
-        food: '附近在地推薦：阿三肉圓、彰化肉圓。'
-      },
-      'food1': {
-        title: '溪湖阿秀羊肉爐',
-        story: '彰化溪湖在地數十年老字號，以新鮮無腥味的溫體羊肉與清甜湯頭聞名。',
-        tickets: '人均約 $400 - $600',
-        guide: '<b>必點菜單：</b>薑絲羊肉爐（湯頭極佳）、白切羊肉、乾麵線。沾上特調薑絲豆瓣醬非常對味！',
-        food: '部落客攻略：內用可免費加湯，熱門時段建議提早前往以免久候。'
-      },
-      'spot2': {
-        title: '大同醬油黑金釀造館',
-        story: '百年歷史的醬油觀光工廠，園區內有巨大黑豆醬油甕與巨型碗筷打卡熱點。',
-        tickets: '<b>免費參觀</b>',
-        guide: '<b>必買伴手禮：</b>黑豆蔭油膏、柳蘭黑豆醬油。<br><b>必吃體驗：</b>獨特鹹甜風味的「醬油冰淇淋」。',
-        food: '周邊推薦：西螺老街碗粿。'
-      },
-      'spot3': {
-        title: '朝露魚舖',
-        story: '日式風格主題觀光工廠，強調職人精神與急凍保鮮技術，展售優質海鮮製品。',
-        tickets: '<b>免費參觀</b>',
-        guide: '<b>必買伴手禮：</b>急凍鮭魚菲力、陸奧鯖魚、冷凍海鮮禮盒。',
-        food: '現場有各式海鮮加工品試吃與購物優惠。'
-      },
-      'spot4': {
-        title: '欣欣國軍罐頭工廠',
-        story: '早期專為國軍提供戰備物資的食品廠，轉型後開放讓民眾採買懷舊軍用罐頭。',
-        tickets: '<b>免費參觀</b>',
-        guide: '<b>必買伴手禮：</b>紅燒牛肉罐頭（買回家煮牛肉麵超香）、軍用口糧餅乾、紅燒豬肉罐頭。',
-        food: '在地人攻略：牛肉罐頭湯頭極濃郁，非常適合買來當火鍋底湯！'
-      },
-      'spot5': {
-        title: '佐登妮絲城堡',
-        story: '全台極具代表性的巴洛克歐風城堡生技園區，擁有壯觀的穹頂建築與歐式花園。',
-        tickets: '<b>全票 $200</b> (可折抵消費)',
-        guide: '<b>拍照亮點：</b>琦琦公主噴泉、克里斯蒂娜城堡、穹頂大廳。',
-        food: '園區內有查爾斯花園餐廳提供簡餐與優雅下午茶。'
-      },
-      'party1': {
-        title: '王公館烤肉地點',
-        story: '私人歡聚地點，請直接點擊導航按鈕前往專屬地圖位址。',
-        tickets: '私人行程',
-        guide: '溫馨親友烤肉歡聚時間。',
-        food: '採買建議：可於民雄市場預先採買食材或打包在地鵝肉前往。'
-      },
-      'spot6': {
-        title: '嘉義市光織影舞 - 小熊維尼100週年',
-        story: '嘉義市年度夜間光影藝術展，特別結合「小熊維尼100週年」主題，於北香湖公園夢幻登場！',
-        tickets: '<b>免費參觀</b>',
-        guide: '<b>必看亮點：</b>大型小熊維尼主題光影裝置、湖畔水上光影秀。建議傍晚 18:30 點燈後前往最佳！',
-        food: '周邊美食：北香湖無名火雞肉飯、黃記涼麵涼肉圓。'
-      },
-      'spot7': {
-        title: '嘉義市立博物館',
-        story: '展現嘉義木業歷史、地質與人文發展的博物館，互動展區豐富且具教育意義。',
-        tickets: '<b>全票 $50</b>',
-        guide: '<b>展區亮點：</b>「探索嘉義」常設展、一樓專為親子設計的探索體驗區。',
-        food: '周邊美食：貓尾巴麵包店（必買泡芙）、檜意森活村小吃。'
-      },
-      'spot8': {
-        title: '嘉義大學昆蟲館',
-        story: '位於嘉大校區內，擁有巨大的球體溫室花園，能讓蝴蝶在身旁飛舞。',
-        tickets: '<b>全票 $150</b>',
-        guide: '<b>必看亮點：</b>旋轉彩蝶柱（千隻蝴蝶標本）、球體熱帶雨林溫室步道。',
-        food: '周邊推薦：嘉大自產鮮乳與鮮乳冰淇淋。'
-      },
-      'spot9': {
-        title: '愛木村地方文化館',
-        story: '由舊檜木製材廠改建而成的木業體驗館，全館散發自然檜木香氣。',
-        tickets: '<b>$100</b> (可折抵 $50)',
-        guide: '<b>必玩體驗：</b>千歲檜木爺爺祈福、親子木工 DIY 體驗。',
-        food: '必買伴手禮：台灣檜木精油、木製文創小禮品。'
-      },
-      'food2': {
-        title: '體育館海鮮碳烤 / 1961海鮮碳烤',
-        story: '嘉義在地熱門平價熱炒碳烤店，氣氛熱鬧，適合家庭朋友聚餐。',
-        tickets: '人均約 $300 - $500',
-        guide: '<b>必點菜單：</b>招牌烤下巴（外酥內嫩）、胡椒蝦、烤生蚵、炒冷筍。',
-        food: '部落客提醒：晚餐時段人潮極多，建議提早前往或電話預訂！'
-      },
-      'spot10': {
-        title: '冷研碳索館',
-        story: '全台首座 CO2 二氧化碳主題觀光工廠，提供酷炫的科學互動與夢幻乾冰效果。',
-        tickets: '<b>全票 $200</b> (可折抵 $100)',
-        guide: '<b>必看亮點：</b>定時施放的夢幻「乾冰瀑布」、氣泡水風味 DIY 體驗。',
-        food: '館內特色餐點：黑水漢堡、特調漸層氣泡飲。'
-      },
-      'spot11': {
-        title: '欣欣水泥森活園觀光工廠',
-        story: '退役水泥工廠改建的文創園區，展示水泥工業文化與手作質感。',
-        tickets: '<b>全票 $100</b>',
-        guide: '<b>體驗亮點：</b>水泥盆栽 DIY 手作體驗、水泥球池遊戲區。',
-        food: '館內提供輕食與飲料。'
-      },
-      'spot12': {
-        title: '中埔穀倉農創園區',
-        story: '舊穀倉活化打造的文創園區，擁有風格獨特的「穀倉星巴克」。',
-        tickets: '<b>免費參觀</b>',
-        guide: '<b>必點推薦：</b>穀倉星巴克限定飲品。<br><b>必買伴手禮：</b>中埔農會直賣所農特產品、阿里山茶葉。',
-        food: '園區內有綠意綠洲咖啡廳與各式在地小吃。'
-      },
-      'spot13': {
-        title: '萌寵村親子樂園',
-        story: '位於嘉義中埔的新興親子動物園區，環境溫馨且動物非常親人。',
-        tickets: '<b>約 $150 - $200</b> (含牧草/飼料)',
-        guide: '<b>體驗亮點：</b>近距離餵食水豚君、羊駝、黑鼻羊，並設有兒童沙坑遊戲區。',
-        food: '園區提供簡餐、鬆餅與冷飲。'
-      }
-    };
+    // 開啟彈窗
+    function openModal(title, desc, time, ticket, food, buy, searchUrl) {
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalDesc').innerText = desc;
+        document.getElementById('modalTime').innerText = time;
+        document.getElementById('modalTicket').innerText = ticket;
+        document.getElementById('modalFood').innerText = food || '無特別指定';
+        document.getElementById('modalBuy').innerText = buy || '無特別指定';
+        
+        const blogBtn = document.getElementById('modalBlog');
+        if (searchUrl) {
+            blogBtn.href = searchUrl;
+            blogBtn.style.display = 'inline-block';
+        } else {
+            blogBtn.style.display = 'none';
+        }
 
-    function openModal(key) {
-      const data = modalData[key];
-      if (!data) return;
-
-      document.getElementById('mTitle').innerText = data.title;
-      
-      let html = '';
-      if (data.story) html += `<h4>💡 景點故事與簡介</h4><p>${data.story}</p>`;
-      if (data.tickets) html += `<h4>🎫 門票資訊</h4><p>${data.tickets}</p>`;
-      if (data.guide) html += `<h4>✨ 攻略與必看點</h4><p>${data.guide}</p>`;
-      if (data.food) html += `<h4>😋 美食與伴手禮推薦</h4><p>${data.food}</p>`;
-
-      document.getElementById('mBody').innerHTML = html;
-      document.getElementById('modalOverlay').classList.add('active');
+        document.getElementById('infoModal').style.display = 'flex';
     }
 
+    // 關閉彈窗
     function closeModal() {
-      document.getElementById('modalOverlay').classList.remove('active');
+        document.getElementById('infoModal').style.display = 'none';
     }
-  </script>
+</script>
+
 </body>
 </html>
