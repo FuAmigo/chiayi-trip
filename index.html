@@ -73,9 +73,9 @@
 
   <!-- Header 標題區 -->
   <header class="bg-primary text-white p-5 rounded-b-3xl solid-border relative overflow-hidden shadow-kawaii">
-    <!-- 右側更換為櫻桃小丸子全家出遊意象插畫 -->
-    <div class="absolute -right-2 -bottom-1 w-28 h-24 pointer-events-none flex items-end justify-end opacity-95">
-      <img src="https://api.iconify.design/noto:family-man-woman-girl-boy.svg" alt="櫻桃小丸子全家出遊" class="w-full h-full object-contain filter drop-shadow-md transform -rotate-3" />
+    <!-- 右側更換為手繪風格出遊（家庭歡樂駕車出遊）插畫 -->
+    <div class="absolute -right-1 -bottom-1 w-28 h-24 pointer-events-none flex items-end justify-end opacity-95">
+      <img src="https://api.iconify.design/noto:sport-utility-vehicle.svg" alt="手繪風格駕車出遊" class="w-full h-full object-contain filter drop-shadow-md transform -rotate-3" />
     </div>
     <div class="flex items-center gap-2 mb-1">
       <span class="bg-accent text-charcoal px-2.5 py-0.5 rounded-full text-xs font-black solid-border">2026 歡樂全家遊 🌸</span>
@@ -157,7 +157,7 @@
             title: '戶羽機關車園區',
             time: '建議停留 1.5 小時',
             ticket: '免費入園（搭乘小火車票價約 $100）',
-            navUrl: 'https://maps.google.com/?q=戶羽機關車園區',
+            navUrl: 'https://maps.app.goo.gl/yERFzmmRgpN9Nz2K9',
             shortStory: '彰化最新熱門鐵道文創園區，緊鄰古蹟「扇形車庫」，可搭乘迷你復古小火車！',
             deepStory: '戶羽機關車園區是彰化近年最受歡迎的鐵道主題文創園區，緊鄰國定古蹟「彰化扇形車庫」。園區完美融合古早鐵道文化與現代文創藝術，設有眾多可愛復古的鐵道裝置藝術、日式木造建築、特色餐車與美食市集。最受大小朋友喜愛的就是可以親自坐上「迷你復古蒸汽小火車」，穿梭在鐵道園區間，還能近距離欣賞真實火車調度的壯觀過程！',
             guideTips: '導遊內行建議：園區拍照點極多，建議抵達後先至小火車售票處購買車票，確認發車時間後再安心逛園區。建議可順遊步行僅 3 分鐘距離的彰化扇形車庫，一次滿足雙重鐵道體驗！',
@@ -306,7 +306,7 @@
             navUrl: 'https://maps.app.goo.gl/ufukdYxcVPEUWVdC9',
             shortStory: '北香湖公園年度光影盛會！盛大結合「小熊維尼100週年」夢幻光影秀！',
             deepStory: '「光織影舞」是嘉義市最具代表性的國際級光影藝術展！2026 年重磅結合迪士尼經典角色「小熊維尼 100 週年」主題，在美麗的北香湖公園湖面上與環湖森林中，打造出巨型夢幻萌爆的維尼光影裝置、百畝森林沉浸式燈光秀與水幕光影表演，讓人彷彿置身於童話繪本世界！',
-            guideTips: '導遊內行建议：展覽夜間燈光秀於傍晚 18:00 正式亮燈，湖面上倒映的維尼燈光極為夢幻，建議著舒適運動鞋環湖散步拍照，湖畔還有期間限定的維尼特色市集喔！',
+            guideTips: '導遊內行建議：展覽夜間燈光秀於傍晚 18:00 正式亮燈，湖面上倒映的維尼燈光極為夢幻，建議著舒適運動鞋環湖散步拍照，湖畔還有期間限定的維尼特色市集喔！',
             mustEat: '光織影舞限定市集美食、維尼造型棉花糖',
             mustOrder: '特調蜂蜜飲品',
             mustBuy: '小熊維尼100週年紀念周邊商品',
@@ -838,7 +838,7 @@
 
       const modalBody = document.getElementById('modal-body');
       
-      // 構建 Modal 內部 HTML (已刪除導航按鈕)
+      // 構建 Modal 內部 HTML (配合每日行程景點，挑選精選優質部落客圖文)
       modalBody.innerHTML = `
         <div class="mb-3">
           <span class="badge ${item.categoryColor} mb-2">${item.type}</span>
@@ -875,13 +875,13 @@
           </div>
         </div>
 
-        <!-- 精選優質部落客圖文 (近一年內精選) -->
+        <!-- 配合每日行程景點，自動精選優質部落客圖文 -->
         <div class="bg-white p-3.5 rounded-2xl solid-border shadow-kawaii-sm mb-2">
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-black text-charcoal flex items-center gap-1">
               <i data-lucide="award" class="w-4 h-4 text-primary"></i> 每日精選部落客圖文推薦
             </span>
-            <span class="text-[10px] bg-secondary/20 text-secondary font-black px-1.5 py-0.5 rounded border border-secondary/40">近1年內熱門</span>
+            <span class="text-[10px] bg-secondary/20 text-secondary font-black px-1.5 py-0.5 rounded border border-secondary/40">近1年熱門精選</span>
           </div>
 
           <a href="${item.blogUrl}" target="_blank" class="group block overflow-hidden rounded-xl border border-charcoal/20 bg-paper hover:border-primary transition-colors">
