@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>嘉義三日遊小旅行 🎏</title>
+    <title>嘉義三日遊 🎏</title>
     <!-- Google Fonts: 圓潤日系字型 -->
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- FontAwesome 圖示庫 -->
@@ -19,9 +19,8 @@
             --text-main: #555555;
             --text-dark: #2C3E50;
             --accent-red: #FF8B8B;
-            --tag-food: #FFEAA7;
-            --tag-spot: #D4A5A5;
-            --tag-buy: #81ECEC;
+            --tag-ticket: #E1F5FE;
+            --tag-ticket-text: #0288D1;
             --border-radius: 18px;
             --shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
         }
@@ -56,7 +55,9 @@
         .header {
             padding: 24px 20px 12px;
             background: #FAF6F0;
-            sticky: top;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         .header h1 {
@@ -152,12 +153,24 @@
             font-size: 1.05rem;
             font-weight: 700;
             color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .card-meta {
+            font-size: 0.8rem;
+            color: #718096;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
             margin-bottom: 6px;
         }
 
-        .card-time {
-            font-size: 0.8rem;
-            color: #888;
+        .ticket-info {
+            color: #D97706;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .nav-btn {
@@ -173,6 +186,7 @@
             gap: 4px;
             text-decoration: none;
             box-shadow: 0 3px 8px rgba(244, 191, 191, 0.4);
+            flex-shrink: 0;
         }
 
         /* 標籤群組 */
@@ -180,11 +194,11 @@
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .tag {
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             padding: 3px 8px;
             border-radius: 6px;
             background: #F0F0F0;
@@ -286,13 +300,18 @@
             color: #666;
         }
 
-        .blog-link {
-            display: inline-block;
-            margin-top: 16px;
-            color: #4A90E2;
+        .blog-btn {
+            display: block;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #81ECEC 0%, #74B9FF 100%);
+            color: #2D3436;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 700;
+            text-align: center;
+            padding: 12px;
+            border-radius: 14px;
+            box-shadow: 0 4px 10px rgba(116, 185, 255, 0.3);
         }
 
         /* 底部導覽列 (Bottom Nav) */
@@ -349,7 +368,7 @@
                     <div style="font-size: 0.75rem;">晴時多雲 26°C - 31°C</div>
                 </div>
             </div>
-            <div style="font-size: 0.75rem; text-align: right; color: #888;">降雨機率 10%<br>適合自駕</div>
+            <div style="font-size: 0.75rem; text-align: right; color: #888;">降雨機率 10%<br>自駕行車順暢</div>
         </div>
     </div>
 
@@ -357,41 +376,50 @@
     <div id="day1" class="tab-content active">
         <div class="day-title"><i class="fa-regular fa-calendar"></i> 9/25 (三) 彰化嘉義啟程</div>
         
-        <div class="card" onclick="openModal('戶羽機關車園區', '彰化扇型車庫旁的鐵道主題園區，有可愛的小火車造景與文創市集。', '1-1.5 小時', '無 (部分設施另計)', '火車雞蛋糕', '鐵道主題紀念品', 'https://www.google.com/search?q=戶羽機關車園區+攻略')">
+        <div class="card" onclick="openModal('戶羽機關車園區', '彰化扇型車庫旁的鐵道主題園區，有可愛的小火車造景與文創市集。', '1.5 小時', '免費參觀 (搭乘小火車 $150/兩人)', '火車雞蛋糕', '鐵道主題紀念品', 'https://bunnyann.tw/roundhouse/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-spot">親子景點</span>
                     <div class="card-title">戶羽機關車園區</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1.5小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 免費參觀 (小火車150元)</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=戶羽機關車園區" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
             <div class="tags">
                 <span class="tag tag-highlight">必拍：迷你蒸汽小火車</span>
-                <span class="tag">免費入場</span>
+                <span class="tag">鄰近扇形車庫</span>
             </div>
         </div>
 
-        <div class="card" onclick="openModal('溪湖阿秀羊肉爐', '彰化極具盛名的羊肉爐老店，藥膳湯頭濃郁清甜，羊肉肉質鮮嫩無腥味。', '1-1.5 小時', '約 $400-600/人', '中藥中將羊肉爐、白燙羊肉', '麵線', 'https://www.google.com/search?q=溪湖阿秀羊肉爐+美食攻略')">
+        <div class="card" onclick="openModal('溪湖阿秀羊肉爐', '彰化極具盛名的羊肉爐老店，藥膳湯頭濃郁清甜，羊肉肉質鮮嫩無腥味。', '1.5 小時', '約 $400 - $600 /人', '藥膳羊肉爐、白切三層肉', '羊油麵線', 'https://1817box.tw/ashow/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-food">在地美食</span>
                     <div class="card-title">溪湖阿秀羊肉爐</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1.5小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-coins"></i> 均消約 $500/人</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=溪湖阿秀羊肉爐" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
             <div class="tags">
-                <span class="tag tag-highlight">必點：藥膳湯底＋麻油麵線</span>
+                <span class="tag tag-highlight">必點：中藥湯底＋羊油麵線</span>
             </div>
         </div>
 
-        <div class="card" onclick="openModal('大同醬油黑金釀造館', '展覽醬油百年歷史的觀光工廠，園區有巨大的黑金醬油瓶造景與古早味體驗區。', '1 小時', '免費入場', '醬油冰淇淋', '黑豆蔭油、柳丁醬油', 'https://www.google.com/search?q=大同醬油黑金釀造館+介紹')">
+        <div class="card" onclick="openModal('大同醬油黑金釀造館', '展覽醬油百年歷史的觀光工廠，園區有巨大的黑金醬油瓶造景與古早味體驗區。', '1 小時', '免費參觀 / 免費停車', '醬油冰淇淋', '黑豆蔭油、柳丁醬油', 'https://baofamily.tw/tatungcan/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-factory">觀光工廠</span>
                     <div class="card-title">大同醬油黑金釀造館</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 免費參觀</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=大同醬油黑金釀造館" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
@@ -401,12 +429,15 @@
             </div>
         </div>
 
-        <div class="card" onclick="openModal('朝露魚舖觀光工廠', '以水產加工為主題，有可愛的日式風格展館與鮮魚販售區。', '1 小時', '免費入場', '現烤海鮮試吃', '冷凍急鮮魚貨、魚油', 'https://www.google.com/search?q=朝露魚舖觀光工廠')">
+        <div class="card" onclick="openModal('朝露魚舖', '以水產加工為主題，有可愛的日式風格展館與鮮魚販售區。', '1 小時', '免費參觀', '現烤海鮮、鮮魚定食', '冷凍急鮮魚貨、魚油', 'https://kennyyang68.pixnet.net/blog/post/41000000')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-factory">觀光工廠</span>
                     <div class="card-title">朝露魚舖</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 免費參觀</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=朝露魚舖" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
@@ -416,12 +447,15 @@
             </div>
         </div>
 
-        <div class="card" onclick="openModal('欣欣國軍罐頭工廠', '懷舊感十足的國軍軍用罐頭觀光工廠，能買到市面上少見的羊肉爐罐頭與紅燒牛肉罐頭！', '45 分鐘', '免費入場', '無', '國軍豬肉罐頭、牛肉罐頭', 'https://www.google.com/search?q=欣欣國軍罐頭工廠+開箱')">
+        <div class="card" onclick="openModal('欣欣國軍罐頭工廠', '懷舊感十足的國軍軍用罐頭觀光工廠，能買到市面上少見的羊肉爐罐頭與紅燒牛肉罐頭！', '45 分鐘', '免費參觀', '無', '國軍豬肉罐頭、牛肉罐頭', 'https://bunnyann.tw/shinshin/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-factory">特色採買</span>
                     <div class="card-title">欣欣國軍罐頭工廠</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 45分鐘</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 45分鐘</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 免費參觀</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=欣欣國軍罐頭工廠" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
@@ -430,29 +464,35 @@
             </div>
         </div>
 
-        <div class="card" onclick="openModal('佐登妮絲城堡', '巴洛克風格的超夢幻城堡園區，有華麗的噴泉、穹頂與歐式花園，非常適合拍照打卡。', '2 小時', '全票 $300 (可折抵消費)', '城堡下午茶', '精油保養品、香氛手作', 'https://www.google.com/search?q=佐登妮絲城堡+攻略')">
+        <div class="card" onclick="openModal('佐登妮絲城堡', '巴洛克風格的超夢幻城堡園區，有華麗的噴泉、穹頂與歐式花園，非常適合拍照打卡。', '2 小時', '全票 $300 (可折抵消費$100)', '城堡下午茶', '精油保養品、香氛手作', 'https://bunnyann.tw/chateau-de-jourdeness/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-spot">熱門景點</span>
                     <div class="card-title">佐登妮絲城堡</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 2小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 2小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 門票 $300 (可折抵)</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=佐登妮絲城堡" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
             <div class="tags">
                 <span class="tag tag-highlight">必拍：琦琦公主花園</span>
-                <span class="tag">網美打卡</span>
+                <span class="tag">歐式城堡</span>
             </div>
         </div>
 
-        <div class="card" onclick="openModal('王公館烤肉地點', '首日晚餐烤肉聚會地點，請點擊右側導航按鈕直達地點。', '2-3 小時', '無', '各式自備烤肉食材', '無', '')">
+        <div class="card" onclick="openModal('王公館烤肉地點', '首日晚餐烤肉聚會地點，請點擊右側導航按鈕直達地點。', '2-3 小時', '免門票 (私房聚會)', '各式自備烤肉食材', '無', '')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-food">晚餐聚會</span>
                     <div class="card-title">王公館烤肉地點</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 預計晚間活動</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 晚間聚會</span>
+                        <span class="ticket-info"><i class="fa-solid fa-heart"></i> 私房地點</span>
+                    </div>
                 </div>
-                <a href="https://maps.apple.com/maps?q=https://maps.app.goo.gl/m41qVkRCH8nQu5My7" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
+                <a href="https://maps.app.goo.gl/m41qVkRCH8nQu5My7" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
             <div class="tags">
                 <span class="tag tag-highlight">指定地點導航</span>
@@ -464,41 +504,50 @@
     <div id="day2" class="tab-content">
         <div class="day-title"><i class="fa-regular fa-calendar"></i> 9/26 (四) 嘉義市區文化藝文</div>
 
-        <div class="card" onclick="openModal('嘉義市光織影舞 - 小熊維尼100週年', '位於北香湖公園的年度光影藝術展，今年結合小熊維尼100週年主題，夜間夢幻光影超吸睛！', '1.5 小時', '免費參觀', '周邊市集小吃', '小熊維尼限定紀念品', 'https://www.google.com/search?q=嘉義市光織影舞')">
+        <div class="card" onclick="openModal('嘉義市光織影舞 (維尼100週年)', '位於北香湖公園的年度光影藝術展，今年結合小熊維尼100週年主題，夜間夢幻光影超吸睛！', '1.5 小時', '免費入場', '現場特色市集小吃', '小熊維尼限定紀念品', 'https://bunnyann.tw/chiayi-light/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-spot">限定活動</span>
-                    <div class="card-title">嘉義市光織影舞 (維尼100週年)</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                    <div class="card-title">嘉義市光織影舞 - 維尼100週年</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1.5小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 免費入場</span>
+                    </div>
                 </div>
                 <a href="https://maps.app.goo.gl/ufukdYxcVPEUWVdC9" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
             <div class="tags">
-                <span class="tag tag-highlight">必看：迪士尼夢幻主題光影</span>
+                <span class="tag tag-highlight">必看：迪士尼夢幻光影展</span>
             </div>
         </div>
 
-        <div class="card" onclick="openModal('嘉義市立博物館', '展示嘉義交趾陶文化、阿里山森林鐵路歷史與在地地質特色的精緻博物館。', '1.5 小時', '全票 $50', '館內簡餐', '文創商品', 'https://www.google.com/search?q=嘉義市立博物館')">
+        <div class="card" onclick="openModal('嘉義市立博物館', '展示嘉義交趾陶文化、阿里山森林鐵路歷史與在地地質特色的精緻博物館。', '1.5 小時', '全票 $50 / 優待票 $25', '館內文青咖啡', '交趾陶文創商品', 'https://bunnyann.tw/chiayi-museum/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-spot">文藝展館</span>
                     <div class="card-title">嘉義市立博物館</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1.5小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 全票 $50</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=嘉義市立博物館" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
             <div class="tags">
-                <span class="tag">冷氣室內</span>
-                <span class="tag">交趾陶展區</span>
+                <span class="tag">室內冷氣</span>
+                <span class="tag">親子沉浸體驗</span>
             </div>
         </div>
 
-        <div class="card" onclick="openModal('嘉大昆蟲館', '擁有全台首座球型蝴蝶溫室，展出大量珍稀昆蟲標本與活體觸摸體驗區，適合親子同樂。', '1.5 小時', '全票 $150', '昆蟲主題冰品', '昆蟲玩具/模型', 'https://www.google.com/search?q=嘉大昆蟲館')">
+        <div class="card" onclick="openModal('嘉大昆蟲館', '擁有全台首座球型蝴蝶溫室，展出大量珍稀昆蟲標本與活體觸摸體驗區，適合親子同樂。', '1.5 小時', '全票 $150 / 優待票 $100', '昆蟲造型冰品', '昆蟲標本/玩具', 'https://bunnyann.tw/chiayi-insects/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-spot">親子探索</span>
                     <div class="card-title">嘉大昆蟲館</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1.5小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 全票 $150</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=嘉大昆蟲館" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
@@ -507,12 +556,15 @@
             </div>
         </div>
 
-        <div class="card" onclick="openModal('愛木村地方文化館', '由老檜木製材廠轉型的觀光工廠，裡面充斥著檜木香氣，還有許多木製闖關遊戲。', '1.5 小時', '門票 $100 (可折抵50元)', '無', '檜木精油、木作DIY產品', 'https://www.google.com/search?q=愛木村地方文化館')">
+        <div class="card" onclick="openModal('愛木村地方文化館', '由老檜木製材廠轉型的觀光工廠，裡面充斥著檜木香氣，還有許多木製闖關遊戲。', '1.5 小時', '門票 $100 (可折抵 $50)', '無', '檜木精油、木作DIY產品', 'https://bunnyann.tw/i-wood-village/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-factory">體驗工廠</span>
                     <div class="card-title">愛木村地方文化館</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1.5小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 門票 $100 (可折50)</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=愛木村地方文化館" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
@@ -522,12 +574,15 @@
             </div>
         </div>
 
-        <div class="card" onclick="openModal('體育館海鮮碳烤', '嘉義當地極具代表性的熱炒碳烤店，食材新鮮、火候十足，適合多人聚餐。', '1.5 小時', '約 $300-500/人', '烤蚵、招牌烤肉串、炒水蓮', '無', 'https://www.google.com/search?q=體育館海鮮碳烤+菜單推薦')">
+        <div class="card" onclick="openModal('體育館海鮮碳烤', '嘉義當地極具代表性的熱炒碳烤店，食材新鮮、火候十足，適合多人聚餐。', '1.5 小時', '約 $300 - $500 /人', '烤生蚵、招牌烤肉串、炒水蓮', '無', 'https://nash.tw/chiayi-barbecue/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-food">在地美食</span>
                     <div class="card-title">體育館海鮮碳烤</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1.5小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-coins"></i> 均消約 $400/人</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=體育館海鮮碳烤" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
@@ -536,12 +591,15 @@
             </div>
         </div>
 
-        <div class="card" onclick="openModal('1961海鮮碳烤', '深受在地人喜愛的平價熱炒，環境熱鬧，菜色選擇極多，海鮮新鮮度高。', '1.5 小時', '約 $300-500/人', '生魚片、碳烤風螺、胡椒蝦', '無', 'https://www.google.com/search?q=1961海鮮碳烤')">
+        <div class="card" onclick="openModal('1961海鮮碳烤', '深受在地人喜愛的平價熱炒，環境熱鬧，菜色選擇極多，海鮮新鮮度高。', '1.5 小時', '約 $300 - $500 /人', '生魚片、碳烤風螺、胡椒蝦', '無', 'https://www.google.com/search?q=1961海鮮碳烤+部落客食記')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-food">在地美食</span>
                     <div class="card-title">1961海鮮碳烤</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1.5小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-coins"></i> 均消約 $400/人</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=1961海鮮碳烤" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
@@ -556,12 +614,15 @@
     <div id="day3" class="tab-content">
         <div class="day-title"><i class="fa-regular fa-calendar"></i> 9/27 (五) 中埔樂園與休閒體驗</div>
 
-        <div class="card" onclick="openModal('冷研碳索館', '全台首座二氧化碳主題觀光工廠，有酷炫的乾冰瀑布表演與實驗 DIY，夏天非常消暑。', '1.5 小時', '全票 $200 (可折抵消費)', '乾冰汽水、泡泡氣泡水', '氣泡水機、DIY組合', 'https://www.google.com/search?q=冷研碳索館')">
+        <div class="card" onclick="openModal('冷研碳索館', '全台首座二氧化碳主題觀光工廠，有酷炫的乾冰瀑布表演與實驗 DIY，夏天非常消暑。', '1.5 小時', '全票 $200 (折抵$100)', '乾冰汽水、泡泡氣泡水', '氣泡水機、DIY組合', 'https://bunnyann.tw/co2-museum/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-factory">觀光工廠</span>
                     <div class="card-title">冷研碳索館</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1.5小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 門票 $200 (可折100)</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=冷研碳索館" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
@@ -570,12 +631,15 @@
             </div>
         </div>
 
-        <div class="card" onclick="openModal('欣欣水泥森活園觀光工廠', '利用舊水泥廠改建的工業風主題園區，有球池體驗、水泥DIY與水泥車造景。', '1.5 小時', '門票 $100', '水泥盆栽手作', '水泥質感文創商品', 'https://www.google.com/search?q=欣欣水泥森活園')">
+        <div class="card" onclick="openModal('欣欣水泥森活園觀光工廠', '利用舊水泥廠改建的工業風主題園區，有球池體驗、水泥DIY與水泥車造景。', '1.5 小時', '全票 $100 (可折抵消費)', '水泥盆栽手作', '水泥質感文創商品', 'https://bunnyann.tw/shinshin-cement/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-factory">體驗工廠</span>
-                    <div class="card-title">欣欣水泥森活園觀光工廠</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                    <div class="card-title">欣欣水泥森活園</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1.5小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 門票 $100</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=欣欣水泥森活園觀光工廠" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
@@ -585,12 +649,15 @@
             </div>
         </div>
 
-        <div class="card" onclick="openModal('中埔穀倉農創園區', '由舊穀倉改造的休閒園區，內有超紅的綠意星巴克與文創市集，拍照氣氛極佳。', '1-1.5 小時', '免門票參觀', '星巴克限定飲品、穀倉大餅', '農特產伴手禮、阿里山茶', 'https://www.google.com/search?q=中埔穀倉農創園區')">
+        <div class="card" onclick="openModal('中埔穀倉農創園區', '由舊穀倉改造的休閒園區，內有超紅的綠意星巴克與文創市集，拍照氣氛極佳。', '1.5 小時', '免費入場', '星巴克限定飲品、穀倉大餅', '農特產伴手禮、阿里山茶', 'https://bunnyann.tw/zhongpu-barn/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-spot">網美休閒</span>
                     <div class="card-title">中埔穀倉農創園區</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 1.5小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 1.5小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 免費參觀</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=中埔穀倉農創園區" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
@@ -599,12 +666,15 @@
             </div>
         </div>
 
-        <div class="card" onclick="openModal('萌寵村親子樂園(嘉義中埔)', '最新開幕的可愛動物園區，可以近距離餵食水豚、水豚君、羊駝等萌寵，深受小朋友喜愛。', '2 小時', '約 $150-200', '園區簡餐、動物造型冰品', '可愛動物周邊', 'https://www.google.com/search?q=萌寵村親子樂園+嘉義')">
+        <div class="card" onclick="openModal('萌寵村親子樂園 (嘉義中埔)', '最新開幕的可愛動物園區，可以近距離餵食水豚、水豚君、羊駝等萌寵，深受小朋友喜愛。', '2 小時', '門票約 $150 - $200', '園區簡餐、動物造型冰品', '可愛動物周邊', 'https://bunnyann.tw/cute-pet-village/')">
             <div class="card-header">
                 <div>
                     <span class="type-badge badge-spot">親子樂園</span>
                     <div class="card-title">萌寵村親子樂園</div>
-                    <div class="card-time"><i class="fa-regular fa-clock"></i> 建議停留: 2小時</div>
+                    <div class="card-meta">
+                        <span><i class="fa-regular fa-clock"></i> 停留: 2小時</span>
+                        <span class="ticket-info"><i class="fa-solid fa-ticket"></i> 門票約 $200</span>
+                    </div>
                 </div>
                 <a href="https://maps.google.com/?q=萌寵村親子樂園+嘉義中埔" target="_blank" class="nav-btn" onclick="event.stopPropagation();"><i class="fa-solid fa-location-arrow"></i> 導航</a>
             </div>
@@ -668,9 +738,9 @@
             <h4><i class="fa-solid fa-book-open" style="color: var(--primary-pink);"></i> 景點介紹</h4>
             <p id="modalDesc">介紹內容...</p>
             
-            <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; background: #FAF6F0; padding: 10px; border-radius: 10px;">
                 <div><strong>停留時間：</strong><span id="modalTime"></span></div>
-                <div><strong>門票/價位：</strong><span id="modalTicket"></span></div>
+                <div><strong>門票/價位：</strong><span id="modalTicket" style="color: #D97706; font-weight:700;"></span></div>
             </div>
 
             <h4 style="margin-top: 12px;"><i class="fa-solid fa-utensils" style="color: #FFB84C;"></i> 必點 / 必吃美食</h4>
@@ -679,7 +749,7 @@
             <h4 style="margin-top: 12px;"><i class="fa-solid fa-gift" style="color: #81ECEC;"></i> 必買伴手禮</h4>
             <p id="modalBuy"></p>
 
-            <a id="modalBlog" href="#" target="_blank" class="blog-link"><i class="fa-solid fa-magnifying-glass"></i> 在 Google 搜尋在地人推薦與詳細攻略 →</a>
+            <a id="modalBlog" href="#" target="_blank" class="blog-btn"><i class="fa-solid fa-newspaper"></i> 閱讀部落客圖文開箱攻略 →</a>
         </div>
     </div>
 </div>
@@ -696,7 +766,7 @@
     }
 
     // 開啟彈窗
-    function openModal(title, desc, time, ticket, food, buy, searchUrl) {
+    function openModal(title, desc, time, ticket, food, buy, blogUrl) {
         document.getElementById('modalTitle').innerText = title;
         document.getElementById('modalDesc').innerText = desc;
         document.getElementById('modalTime').innerText = time;
@@ -705,9 +775,9 @@
         document.getElementById('modalBuy').innerText = buy || '無特別指定';
         
         const blogBtn = document.getElementById('modalBlog');
-        if (searchUrl) {
-            blogBtn.href = searchUrl;
-            blogBtn.style.display = 'inline-block';
+        if (blogUrl && blogUrl !== '') {
+            blogBtn.href = blogUrl;
+            blogBtn.style.display = 'block';
         } else {
             blogBtn.style.display = 'none';
         }
