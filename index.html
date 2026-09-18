@@ -71,18 +71,17 @@
 </head>
 <body class="bg-cream min-h-screen pb-24 max-w-md mx-auto relative border-x-2 border-charcoal/10 shadow-2xl">
 
-  <!-- Header 標題區 (清爽視覺、清空遮擋插圖) -->
+  <!-- Header 標題區 -->
   <header class="bg-primary text-white p-5 rounded-b-3xl solid-border relative overflow-hidden shadow-kawaii">
+    <!-- 右側點綴可愛精緻休旅車圖示，降低凸顯度提升視覺舒適感 -->
+    <div class="absolute -right-2 -bottom-2 w-20 h-20 pointer-events-none flex items-end justify-end opacity-25">
+      <i data-lucide="car" class="w-16 h-16 text-white stroke-[2.5]"></i>
+    </div>
     <div class="flex items-center gap-2 mb-1">
       <span class="bg-accent text-charcoal px-2.5 py-0.5 rounded-full text-xs font-black solid-border">2026 歡樂全家遊 🌸</span>
     </div>
-    <div class="flex items-center gap-2">
-      <div class="bg-white/20 p-1.5 rounded-xl border border-white/40">
-        <i data-lucide="bus-front" class="w-6 h-6 text-white"></i>
-      </div>
-      <h1 class="text-2xl font-black tracking-wide">嘉義三日遊</h1>
-    </div>
-    <p class="text-xs text-paper/90 mt-1.5 flex items-center gap-1 font-bold">
+    <h1 class="text-2xl font-black tracking-wide">嘉義三日遊</h1>
+    <p class="text-xs text-paper/90 mt-1 flex items-center gap-1 font-bold">
       <i data-lucide="calendar" class="w-3.5 h-3.5"></i> 9/25 (五) ~ 9/27 (日) ｜ 住宿：夏禾國際行舘
     </p>
   </header>
@@ -106,7 +105,7 @@
     <!-- JS 動態渲染 -->
   </main>
 
-  <!-- 底部手繪風 App 導覽列 -->
+  <!-- 底部手繪風 App 導覽列（包含加大按鈕） -->
   <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t-2 border-charcoal p-2 flex justify-around items-center z-40 rounded-t-2xl shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
     <button onclick="switchTab('day1')" id="nav-day1" class="nav-btn flex flex-col items-center p-2 rounded-xl text-primary font-black flex-1 mx-0.5">
       <div class="p-1.5 rounded-lg bg-primary/10"><i data-lucide="train" class="w-5 h-5 text-primary"></i></div>
@@ -133,9 +132,13 @@
   <!-- 彈出式詳細攻略 Modal -->
   <div id="modal-backdrop" class="fixed inset-0 bg-charcoal/50 z-50 hidden opacity-0 transition-opacity duration-300 flex items-end sm:items-center justify-center p-0 sm:p-4">
     <div id="modal-card" class="bg-paper w-full max-w-md max-h-[85vh] rounded-t-3xl sm:rounded-3xl solid-border p-5 overflow-y-auto transform translate-y-full transition-transform duration-300 relative shadow-kawaii-lg">
+      
+      <!-- 關閉按鈕 -->
       <button onclick="closeModal()" class="absolute top-4 right-4 bg-accent text-charcoal p-1.5 rounded-full solid-border hover:rotate-90 transition-transform z-10">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
+
+      <!-- Modal 動態內容 -->
       <div id="modal-body"></div>
     </div>
   </div>
@@ -271,10 +274,10 @@
             navUrl: 'https://maps.app.goo.gl/fVaEMF6PZ4sgWRyS8',
             shortStory: '今晚重頭戲！專屬親友歡聚烤肉 Party，享用豐富食材與溫馨夜晚。',
             deepStory: '嘉義之旅第一天的壓軸重頭戲！專為親友團精心準備的王公館烤肉 Party。精心準備的澎湃烤肉食材、炭火香氣伴隨著冰涼飲料，大家圍坐在一起歡笑暢談，開啟這趟嘉義三日遊最溫馨熱鬧的夜晚！',
-            guideTips: '導遊內行建議：已為您在主行程卡片設定好專屬導航按鈕，點擊即可直接開啟 Google 地圖前往！今晚放鬆心情，盡情享用美食與歡樂時限。',
+            guideTips: '導遊內行建議：已為您在主行程卡片設定好專屬導航按鈕，點擊即可直接開啟 Google 地圖前往！今晚放鬆心情，盡情享用美食與歡樂時光。',
             mustEat: '特製烤肉、冰涼飲料啤酒',
             mustOrder: '熱情與歡笑聲！',
-            mustBuy: '滿滿的歡樂美好回憶',
+            mustBuy: '滿滿的歡樂美好回億',
             bloggerName: '王公館趴踢粉絲專頁',
             blogTitle: '前往大林鎮公所中秋活動FB 詳細資訊',
             blogUrl: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0JcjaZsb2jB7CQFzR4ijBFR7J99o4ACzPKKGgUcW983aPTidHBNU3M3dJgBokiQgyl&id=100064420582777&__tn__=R',
@@ -353,7 +356,7 @@
             navUrl: 'https://maps.google.com/?q=愛木村地方文化館',
             shortStory: '半世紀舊檜木製材廠改造，濃濃檜木香氣與原木互動木育遊戲！',
             deepStory: '由 1960 年代成立的舊檜木製材廠改造而成，踏入館內便能聞到舒壓溫潤的濃郁台灣檜木香氣！館內保存了古老巨大的鋸木機器，並設計了許多原木互動體驗關卡、木育遊戲設施，以及高達千年的檜木爺爺許願池，並提供多款質感木工 DIY 手作體驗。',
-            guideTips: '導遊內行建議：門票可部分折抵消費，非常推荐體驗「手作檜木筷」或「組裝小木車」DIY，成品帶回家質感極佳且充滿獨一無二的旅遊回億！',
+            guideTips: '導遊內行建議：門票可部分折抵消費，非常推薦體驗「手作檜木筷」或「組裝小木車」DIY，成品帶回家質感極佳且充滿獨一無二的旅遊回億！',
             mustEat: '木香特色紅茶',
             mustOrder: '木工 DIY 手作體驗（小木車或檜木筷）',
             mustBuy: '台灣檜木精油、原木杯墊、檜木香包',
@@ -527,354 +530,237 @@
           },
           {
             id: 'f_2',
-            type: '必吃飲料',
-            categoryColor: 'bg-sky text-charcoal',
-            title: '知更鳥葡萄柚綠茶',
-            time: '隨時前往',
-            ticket: '約 $50 - $70',
-            navUrl: 'https://maps.google.com/?q=知更鳥葡萄柚綠茶',
-            shortStory: '嘉義在地人不排隊的隱藏版口袋名單，果肉份量超澎湃！',
-            deepStory: '如果不想在御香屋久候排隊，這家「知更鳥」就是嘉義在地人的美味口袋珍藏！葡萄柚綠茶同樣給料毫不手軟，果肉爆滿且新鮮無苦澀味，比例拿捏極佳，價格更是相當親民，CP 值超高！',
-            guideTips: '導遊內行建議：購買方便快速幾乎不需長時間等待，口感美味完全不輸排隊名店，是在地人最愛的私房手搖選擇。',
-            mustEat: '葡萄柚綠茶',
-            mustOrder: '葡萄柚綠茶（加梅子）、鳳梨綠茶',
+            type: '在地小吃',
+            categoryColor: 'bg-primary text-white',
+            title: '阿樓師火雞肉飯',
+            time: '營業時間 16:00 - 00:00',
+            ticket: '人均約 $50 - $120',
+            navUrl: 'https://maps.google.com/?q=阿樓師火雞肉飯',
+            shortStory: '嘉義深夜食堂熱門雞肉飯，濃郁雞油與鮮嫩火雞肉片！',
+            deepStory: '阿樓師是許多嘉義在地人的宵夜愛店！淋上特製濃郁雞油與古早味醬汁，米飯粒粒分明吸飽精華，火雞肉片鮮嫩多汁完全不乾柴。',
+            guideTips: '導遊內行建議：建議點「火雞肉片飯」口感更棒，再配上一碗當日新鮮味噌湯或下水湯，滿足度破表！',
+            mustEat: '火雞肉片飯、肉羹湯',
+            mustOrder: '火雞肉片飯、下水湯、皮蛋豆腐',
             mustBuy: '無',
-            bloggerName: '可楠旅遊',
-            blogTitle: '嘉義美食｜知更鳥葡萄柚綠茶：在地人不排隊的隱藏版美味',
-            blogUrl: 'https://kenantravel.tw/robinsnest-chiayi/',
-            localFood: '民族路宵夜小吃、劉里長雞肉飯'
-          },
-          {
-            id: 'f_3',
-            type: '必吃冰品',
-            categoryColor: 'bg-accent text-charcoal',
-            title: '咱台灣人的冰',
-            time: '建議停留 45 分鐘',
-            ticket: '約 $50 - $80',
-            navUrl: 'https://maps.google.com/?q=咱台灣人的冰',
-            shortStory: '位於畫家陳澄波故居，古早味黑糖高塔剉冰與神級蜜蕃薯！',
-            deepStory: '位於台灣著名畫家陳澄波先生的昔日故居，建築充滿濃厚日式古厝懷舊氛圍。店家堅持採用傳統工法熬煮配料，以大份量的「黑糖高塔剉冰」與熱騰騰綿密的「古早味蜜蕃薯」享譽嘉義！',
-            guideTips: '導遊內行建議：招牌「蜜蕃薯」香甜綿密、濃郁入味，熱氣騰騰淋上微甜糖水，配上一口黑糖剉冰，冷熱交織的口感極度誘人！',
-            mustEat: '綜合黑糖剉冰、蜜蕃薯',
-            mustOrder: '蜜蕃薯、芋圓、粉條、湯圓',
-            mustBuy: '盒裝蜜蕃薯伴手禮',
-            bloggerName: '33 享食爽玩',
-            blogTitle: '嘉義冰品｜咱台灣人的冰：陳澄波故居里的黑糖高塔剉冰',
-            blogUrl: 'https://threethree.tw/202605120900-2/',
-            localFood: '阿波鴨肉麵、和平嘉義火雞肉飯'
-          },
-          {
-            id: 'f_4',
-            type: '必吃小吃',
-            categoryColor: 'bg-accent text-charcoal',
-            title: '阿婆烤玉米',
-            time: '早上開賣即抽號碼牌',
-            ticket: '按支秤重約 $70 - $100',
-            navUrl: 'https://maps.google.com/?q=阿婆烤玉米',
-            shortStory: '嘉義最難買到的神級炭烤玉米！秘製芝麻醬香氣十足！',
-            deepStory: '阿婆烤玉米被譽為嘉義最難買到的「神級小吃」！堅持使用傳統生玉米直接在炭火上慢慢素烤至熟，再反覆刷上秘製數十年的特濃芝麻醬與獨門醬汁，玉米粒Q彈飽滿，醬香濃郁逼人！',
-            guideTips: '導遊內行建議：早上開店即需先前往現場領取號碼牌並挑選玉米，通常等待時間需 2-3 小時以上。領完號碼牌後可先安心前往其他景點，時間到了再回店取貨。',
-            mustEat: '獨門炭烤玉米',
-            mustOrder: '硬質/軟質玉米（可請阿婆挑選）',
-            mustBuy: '無',
-            bloggerName: '享樂狂軍師 Jun',
-            blogTitle: '嘉義神級美食｜阿婆烤玉米：排隊幾小時也甘願的神級炭烤玉米',
-            blogUrl: 'https://hedonistjun.com/jiayi-a-po-grilled-corn/',
-            localFood: '嘉義城隍廟廟口小吃、東市場牛雜湯'
-          },
-          {
-            id: 'f_5',
-            type: '必吃甜品',
-            categoryColor: 'bg-accent text-charcoal',
-            title: "貓尾巴麵包店 (Cat's Tail)",
-            time: '建議下午出爐時間前往',
-            ticket: '約 $40 - $70',
-            navUrl: "https://maps.google.com/?q=貓尾巴麵包店",
-            shortStory: '嘉義殿堂級泡芙名店，開門秒殺爆漿泡芙！',
-            deepStory: '貓尾巴麵包店是嘉義人氣極度火爆的甜點麵包名店！每日下午特定時段泡芙出爐時，門口總是擠滿搶購人潮。招牌「爆漿泡芙」外皮酥脆香濃，內餡卡士達醬綿密不甜膩，口味高達十多種！',
-            guideTips: '導遊內行建議：泡芙出爐時間約為每天下午 11:30 至 12:00 開始陸續出爐，建議準時前往挑選，剛出爐的外皮最為酥脆！',
-            mustEat: '泡芙系列（原味卡士達、巧克力、草莓）',
-            mustOrder: '招牌泡芙、起司蛋糕、法式塔類',
-            mustBuy: '手工餅乾、新鮮吐司',
-            bloggerName: '珍尼斯與安迪',
-            blogTitle: '嘉義甜點｜貓尾巴麵包店：開門秒殺！秒秒賣光的神級爆漿泡芙',
-            blogUrl: 'https://janice.life/cats-tail-mainstore/',
-            localFood: '嘉義公園雞肉飯、劉里長雞肉飯'
+            bloggerName: '嘉義美食小組',
+            blogTitle: '嘉義宵夜首選｜阿樓師火雞肉飯：在地人隱藏版私房清單',
+            blogUrl: 'https://google.com',
+            localFood: '文化路商圈周邊美食'
           }
         ]
       },
       hotel: {
-        title: '飯店住宿資訊 🏨',
-        name: '夏禾國際行舘 (Chia-Ho Hotel)',
+        title: '住宿資訊 🏨 夏禾國際行舘',
+        name: '夏禾國際行舘 (Hsin Ho Hotel)',
         address: '嘉義市西區大華路50號',
-        phone: '05-283-6868',
-        checkIn: '15:00 後',
-        checkOut: '11:00 前',
+        phone: '05-283-6888',
+        checkIn: '15:00 以後',
+        checkOut: '11:00 以前',
         navUrl: 'https://maps.google.com/?q=夏禾國際行舘',
-        description: '位於嘉義市區，交通便利，附設專用停車場，提供舒適優質的住宿空間與豐盛早餐服務，是全家大小遊覽嘉義的最佳基地！',
-        facilities: [
-          '免費專用平面停車場',
-          '全館高速度免費 Wi-Fi',
-          '親子兒童遊戲室 / 讀書區',
-          '自助洗衣與烘衣設備',
-          '24小時專業前台服務與行李寄放',
-          '中西式自助早餐餐廳'
+        features: [
+          '地理位置優越，鄰近嘉義火車站與家樂福夜市',
+          '免費專屬停車場（適合自駕開車前往）',
+          '全館免費高速 Wi-Fi 無線網路',
+          '24小時專業櫃檯服務與行李寄放',
+          '提供活力自助式中西式早餐',
+          '多功能休閒聯誼廳與親子友善空間'
         ],
         nearbyFood: [
-          { name: '阿樓師火雞肉飯', distance: '車程約 3 分鐘', desc: '在地人首推宵夜場火雞肉飯名店' },
-          { name: '文化路觀光夜市', distance: '車程約 7 分鐘', desc: '美乃滋涼麵、林聰明沙鍋魚頭、阿娥豆花' },
-          { name: '福義軒餅店 總店', distance: '車程約 4 分鐘', desc: '手工芝麻蛋捲、手工椒鹽餅伴手禮名店' }
+          '阿樓師火雞肉飯 (開車約 5 分鐘)',
+          '黃記涼麵涼圓 (開車約 7 分鐘)',
+          '文化路觀光夜市 (開車約 8 分鐘)',
+          '家樂福夜市 (步行僅需 10 分鐘)',
+          '源興御香屋 (開車約 8 分鐘)'
         ]
       }
     };
 
     let currentTab = 'day1';
 
-    // 產生卡片 HTML（將停留時間、故事簡介、門票等用不同顏色區分，視覺更清晰）
-    function createCardHtml(item) {
-      return `
-        <div class="bg-white p-4 rounded-2xl solid-border shadow-kawaii mb-3 relative">
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <span class="badge ${item.categoryColor}">${item.type}</span>
-            <!-- 多色優化：時間標籤改用橘色底標 -->
-            <span class="text-[11px] font-extrabold text-primary bg-primary/10 px-2.5 py-0.5 rounded-md border border-primary/30 flex items-center gap-1">
-              <i data-lucide="clock" class="w-3 h-3 text-primary"></i> ${item.time}
-            </span>
-          </div>
-
-          <h3 class="text-lg font-black text-charcoal mb-1.5 flex items-center gap-1.5">
-            ${item.title}
-          </h3>
-
-          <!-- 多色優化：簡介改用太陽黃柔和背景 -->
-          <p class="text-xs text-charcoal/90 font-bold mb-2.5 leading-relaxed bg-accent/20 p-2.5 rounded-xl border border-accent/40">
-            ${item.shortStory}
-          </p>
-
-          <!-- 多色優化：門票改用森林綠底標 -->
-          <div class="text-[11px] font-black text-secondary bg-secondary/10 p-2 rounded-xl border border-secondary/30 mb-3 flex items-center gap-1.5">
-            <i data-lucide="ticket" class="w-4 h-4 text-secondary flex-shrink-0"></i>
-            <span>門票/消費：${item.ticket}</span>
-          </div>
-
-          <!-- 加大版操作按鈕區 -->
-          <div class="grid grid-cols-2 gap-2.5 pt-1">
-            <a href="${item.navUrl}" target="_blank" class="flex items-center justify-center gap-1.5 bg-primary text-white py-2.5 px-3 rounded-xl font-black text-sm solid-border shadow-kawaii-sm active:translate-y-0.5 active:shadow-none transition-all">
-              <i data-lucide="navigation" class="w-4 h-4"></i> 開啟導航
-            </a>
-            <button onclick="openModal('${item.id}')" class="flex items-center justify-center gap-1.5 bg-accent text-charcoal py-2.5 px-3 rounded-xl font-black text-sm solid-border shadow-kawaii-sm active:translate-y-0.5 active:shadow-none transition-all">
-              <i data-lucide="book-open" class="w-4 h-4"></i> 詳細攻略
-            </button>
-          </div>
-        </div>
-      `;
-    }
-
-    // 渲染主頁面
-    function renderTab(tabKey) {
-      const main = document.getElementById('main-content');
-      const weatherCard = document.getElementById('weather-card');
-      
-      // 更新天氣卡資訊
-      if (itineraryData[tabKey] && itineraryData[tabKey].weather) {
-        weatherCard.style.display = 'flex';
-        const w = itineraryData[tabKey].weather;
-        document.getElementById('weather-date').innerText = w.date;
-        document.getElementById('weather-text').innerText = w.text;
-      } else {
-        weatherCard.style.display = 'none';
-      }
-
-      // 渲染美食 TAB
-      if (tabKey === 'food') {
-        const foodData = itineraryData.food;
-        let html = `
-          <div class="bg-accent/30 p-3 rounded-2xl solid-border mb-3 font-black text-sm text-charcoal text-center flex items-center justify-center gap-2">
-            <i data-lucide="utensils" class="w-4 h-4 text-primary"></i> ${foodData.title}
-          </div>
-        `;
-        foodData.items.forEach(item => {
-          html += createCardHtml(item);
-        });
-        main.innerHTML = html;
-      } 
-      // 渲染飯店住宿 TAB (含免費設施與周邊美食)
-      else if (tabKey === 'hotel') {
-        const h = itineraryData.hotel;
-        let facilitiesHtml = h.facilities.map(f => `
-          <li class="flex items-center gap-1.5 text-xs font-bold text-charcoal/80 bg-paper p-1.5 rounded-lg border border-charcoal/20">
-            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-secondary flex-shrink-0"></i> ${f}
-          </li>
-        `).join('');
-
-        let nearbyFoodHtml = h.nearbyFood.map(f => `
-          <div class="bg-paper p-2 rounded-xl border border-charcoal/20">
-            <div class="flex justify-between items-center mb-0.5">
-              <span class="font-black text-xs text-primary">${f.name}</span>
-              <span class="text-[10px] font-bold bg-sky/30 text-charcoal px-1.5 py-0.5 rounded border border-charcoal/20">${f.distance}</span>
-            </div>
-            <p class="text-[11px] font-bold text-charcoal/70">${f.desc}</p>
-          </div>
-        `).join('');
-
-        main.innerHTML = `
-          <div class="bg-white p-4 rounded-2xl solid-border shadow-kawaii mb-4">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="badge bg-sky text-charcoal">${h.title}</span>
-            </div>
-            <h2 class="text-xl font-black text-charcoal mb-2 flex items-center gap-2">
-              <i data-lucide="building-2" class="w-5 h-5 text-primary"></i> ${h.name}
-            </h2>
-            <p class="text-xs font-bold text-charcoal/80 leading-relaxed mb-3 bg-paper p-2.5 rounded-xl border border-charcoal/20">
-              ${h.description}
-            </p>
-
-            <div class="space-y-2 text-xs font-bold text-charcoal mb-4 bg-cream p-3 rounded-xl border border-charcoal/20">
-              <div class="flex items-center gap-2">
-                <i data-lucide="map-pin" class="w-4 h-4 text-primary"></i>
-                <span>地址：${h.address}</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="phone" class="w-4 h-4 text-secondary"></i>
-                <span>電話：${h.phone}</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="clock" class="w-4 h-4 text-accent"></i>
-                <span>入住/退房：${h.checkIn} Check-in ｜ ${h.checkOut} Check-out</span>
-              </div>
-            </div>
-
-            <!-- 免費設施與服務 -->
-            <div class="mb-4">
-              <h3 class="text-xs font-black text-charcoal mb-2 flex items-center gap-1">
-                <i data-lucide="sparkles" class="w-4 h-4 text-accent"></i> 飯店免費設施與服務
-              </h3>
-              <ul class="grid grid-cols-2 gap-1.5">
-                ${facilitiesHtml}
-              </ul>
-            </div>
-
-            <!-- 周邊美食推薦 -->
-            <div class="mb-4">
-              <h3 class="text-xs font-black text-charcoal mb-2 flex items-center gap-1">
-                <i data-lucide="utensils-crossed" class="w-4 h-4 text-primary"></i> 飯店周邊美食推薦
-              </h3>
-              <div class="space-y-2">
-                ${nearbyFoodHtml}
-              </div>
-            </div>
-
-            <a href="${h.navUrl}" target="_blank" class="w-full flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-xl font-black text-sm solid-border shadow-kawaii-sm active:translate-y-0.5 active:shadow-none transition-all">
-              <i data-lucide="navigation" class="w-4 h-4"></i> 開啟飯店地圖導航
-            </a>
-          </div>
-        `;
-      } 
-      // 渲染 Day 1, Day 2, Day 3 行程 TAB
-      else {
-        const dayData = itineraryData[tabKey];
-        let html = '';
-        dayData.items.forEach(item => {
-          html += createCardHtml(item);
-        });
-        main.innerHTML = html;
-      }
-
-      // 重新渲染 Lucide 圖示
-      lucide.createIcons();
-    }
-
-    // 切換 TAB
     function switchTab(tabKey) {
       currentTab = tabKey;
       
-      // 更新導覽列高亮效果
+      // 更新 Tab 按鈕樣式
       document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.classList.remove('text-primary');
         btn.classList.add('text-charcoal/60');
       });
-
       const activeBtn = document.getElementById(`nav-${tabKey}`);
       if (activeBtn) {
         activeBtn.classList.remove('text-charcoal/60');
         activeBtn.classList.add('text-primary');
       }
 
-      renderTab(tabKey);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // 開啟詳細攻略 Modal
-    function openModal(itemId) {
-      let foundItem = null;
-      for (const key in itineraryData) {
-        if (itineraryData[key].items) {
-          const match = itineraryData[key].items.find(i => i.id === itemId);
-          if (match) {
-            foundItem = match;
-            break;
-          }
-        }
+      // 更新天氣卡
+      const weatherCard = document.getElementById('weather-card');
+      if (itineraryData[tabKey] && itineraryData[tabKey].weather) {
+        weatherCard.classList.remove('hidden');
+        const w = itineraryData[tabKey].weather;
+        document.getElementById('weather-date').innerText = w.date;
+        document.getElementById('weather-text').innerText = w.text;
+      } else {
+        weatherCard.classList.add('hidden');
       }
 
-      if (!foundItem) return;
+      renderContent();
+    }
+
+    function renderContent() {
+      const main = document.getElementById('main-content');
+      main.innerHTML = '';
+
+      if (currentTab === 'hotel') {
+        const hotel = itineraryData.hotel;
+        main.innerHTML = `
+          <div class="bg-card p-5 rounded-3xl solid-border shadow-kawaii mb-6">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <span class="badge bg-sky text-charcoal mb-2">優質推薦住宿</span>
+                <h2 class="text-xl font-black text-charcoal">${hotel.name}</h2>
+              </div>
+            </div>
+            
+            <div class="space-y-2 text-xs font-bold text-charcoal/80 mb-4 bg-paper p-3 rounded-xl dashed-border">
+              <p class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-primary"></i> ${hotel.address}</p>
+              <p class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-secondary"></i> ${hotel.phone}</p>
+              <p class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4 text-accent"></i> 入住: ${hotel.checkIn} ｜ 退房: ${hotel.checkOut}</p>
+            </div>
+
+            <a href="${hotel.navUrl}" target="_blank" class="w-full bg-primary text-white py-2.5 rounded-xl font-black solid-border shadow-kawaii-sm flex items-center justify-center gap-2 mb-5 hover:bg-primary/90">
+              <i data-lucide="navigation" class="w-4 h-4"></i> 開啟 Google 地圖導航
+            </a>
+
+            <!-- 免費設施 -->
+            <div class="mb-5">
+              <h3 class="font-black text-sm text-charcoal border-l-4 border-secondary pl-2 mb-2">🏨 飯店免費設施與服務</h3>
+              <ul class="grid grid-cols-1 gap-1.5">
+                ${hotel.features.map(f => `
+                  <li class="bg-secondary/10 text-charcoal text-xs p-2 rounded-lg font-bold flex items-center gap-2">
+                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-secondary"></i> ${f}
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+
+            <!-- 周邊美食 -->
+            <div>
+              <h3 class="font-black text-sm text-charcoal border-l-4 border-primary pl-2 mb-2">🍴 周邊美食推薦</h3>
+              <ul class="grid grid-cols-1 gap-1.5">
+                ${hotel.nearbyFood.map(food => `
+                  <li class="bg-primary/10 text-charcoal text-xs p-2 rounded-lg font-bold flex items-center gap-2">
+                    <i data-lucide="utensils" class="w-3.5 h-3.5 text-primary"></i> ${food}
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      // 每日卡片 / 美食清單 渲染
+      const data = itineraryData[currentTab];
+      if (!data) return;
+
+      const titleEl = document.createElement('div');
+      titleEl.className = "flex items-center justify-between my-2 px-1";
+      titleEl.innerHTML = `<h2 class="font-black text-lg text-charcoal">${data.date ? data.date + ' 行程規劃' : data.title}</h2>`;
+      main.appendChild(titleEl);
+
+      data.items.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = "bg-card p-4 rounded-3xl solid-border shadow-kawaii mb-4 relative overflow-hidden";
+        
+        card.innerHTML = `
+          <div class="flex justify-between items-start mb-2">
+            <span class="badge ${item.categoryColor}">${item.type}</span>
+            <span class="text-xs font-black text-charcoal/40">#${index + 1}</span>
+          </div>
+
+          <h3 class="text-lg font-black text-charcoal mb-2">${item.title}</h3>
+          
+          <p class="text-xs text-charcoal/80 font-bold mb-3 leading-relaxed bg-cream p-2.5 rounded-xl border border-charcoal/10">
+            ${item.shortStory}
+          </p>
+
+          <!-- 多彩資訊標籤群（提升手機舒適視覺感） -->
+          <div class="space-y-1.5 text-xs font-bold mb-4">
+            <div class="flex items-center gap-2 bg-amber-50 text-amber-900 p-2 rounded-xl border border-amber-200">
+              <i data-lucide="clock" class="w-4 h-4 text-amber-600 shrink-0"></i>
+              <span>${item.time}</span>
+            </div>
+            
+            <div class="flex items-center gap-2 bg-emerald-50 text-emerald-900 p-2 rounded-xl border border-emerald-200">
+              <i data-lucide="ticket" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+              <span>${item.ticket}</span>
+            </div>
+
+            ${item.mustEat ? `
+            <div class="flex items-center gap-2 bg-rose-50 text-rose-900 p-2 rounded-xl border border-rose-200">
+              <i data-lucide="utensils" class="w-4 h-4 text-rose-500 shrink-0"></i>
+              <span>必吃/體驗：${item.mustEat}</span>
+            </div>` : ''}
+          </div>
+
+          <!-- 按鈕區 -->
+          <div class="flex gap-2">
+            <a href="${item.navUrl}" target="_blank" class="flex-1 bg-primary text-white py-2 rounded-xl text-xs font-black solid-border shadow-kawaii-sm flex items-center justify-center gap-1 hover:bg-primary/90">
+              <i data-lucide="navigation" class="w-3.5 h-3.5"></i> 導航
+            </a>
+            <button onclick="openModal('${currentTab}', '${item.id}')" class="flex-1 bg-accent text-charcoal py-2 rounded-xl text-xs font-black solid-border shadow-kawaii-sm flex items-center justify-center gap-1 hover:bg-accent/90">
+              <i data-lucide="book-open" class="w-3.5 h-3.5"></i> 詳細攻略
+            </button>
+          </div>
+        `;
+        main.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    // Modal 彈窗控制
+    function openModal(tabKey, itemId) {
+      const item = itineraryData[tabKey].items.find(i => i.id === itemId);
+      if (!item) return;
 
       const modalBody = document.getElementById('modal-body');
       modalBody.innerHTML = `
-        <div class="flex items-center gap-2 mb-2">
-          <span class="badge ${foundItem.categoryColor}">${foundItem.type}</span>
-          <span class="text-xs font-bold text-charcoal/70 flex items-center gap-1">
-            <i data-lucide="clock" class="w-3.5 h-3.5 text-primary"></i> ${foundItem.time}
-          </span>
+        <div class="mb-3">
+          <span class="badge ${item.categoryColor}">${item.type}</span>
+          <h2 class="text-xl font-black text-charcoal mt-1">${item.title}</h2>
         </div>
 
-        <h2 class="text-xl font-black text-charcoal mb-3">${foundItem.title}</h2>
-
-        <div class="bg-white p-3 rounded-xl solid-border mb-3 text-xs font-bold leading-relaxed text-charcoal/90">
-          <div class="text-primary font-black mb-1 flex items-center gap-1">
-            <i data-lucide="compass" class="w-4 h-4"></i> 景點深入簡介：
+        <div class="space-y-4 text-xs font-bold text-charcoal/90">
+          
+          <div class="bg-cream p-3 rounded-2xl border border-charcoal/10">
+            <h4 class="font-black text-sm text-primary mb-1 flex items-center gap-1"><i data-lucide="sparkles" class="w-4 h-4"></i> 景點私房故事</h4>
+            <p class="leading-relaxed text-charcoal/80">${item.deepStory}</p>
           </div>
-          ${foundItem.deepStory}
+
+          <div class="bg-secondary/10 p-3 rounded-2xl border border-secondary/30">
+            <h4 class="font-black text-sm text-secondary mb-1 flex items-center gap-1"><i data-lucide="compass" class="w-4 h-4"></i> 導遊內行建議</h4>
+            <p class="leading-relaxed text-charcoal/80">${item.guideTips}</p>
+          </div>
+
+          <div class="bg-accent/20 p-3 rounded-2xl border border-accent/40 space-y-1">
+            <p class="text-charcoal"><span class="font-black text-primary">推薦嚐鮮：</span>${item.mustEat || '無'}</p>
+            <p class="text-charcoal"><span class="font-black text-secondary">推薦必點：</span>${item.mustOrder || '無'}</p>
+            <p class="text-charcoal"><span class="font-black text-charcoal">推薦必買：</span>${item.mustBuy || '無'}</p>
+            <p class="text-charcoal"><span class="font-black text-primary">周邊美食：</span>${item.localFood || '無'}</p>
+          </div>
+
+          ${item.blogUrl ? `
+          <div class="bg-sky/20 p-3 rounded-2xl border border-sky/40">
+            <h4 class="font-black text-sm text-charcoal mb-1 flex items-center gap-1"><i data-lucide="link" class="w-4 h-4"></i> 部落客優質推薦</h4>
+            <p class="text-charcoal/70 mb-2">${item.bloggerName}：${item.blogTitle}</p>
+            <a href="${item.blogUrl}" target="_blank" class="inline-block bg-white text-charcoal px-3 py-1.5 rounded-lg solid-border font-black shadow-kawaii-sm hover:bg-gray-50">
+              閱讀完整部落格文章 ➔
+            </a>
+          </div>` : ''}
+
         </div>
-
-        <div class="bg-accent/20 p-3 rounded-xl border-2 border-accent mb-3 text-xs font-bold leading-relaxed text-charcoal">
-          <div class="text-charcoal font-black mb-1 flex items-center gap-1">
-            <i data-lucide="lightbulb" class="w-4 h-4 text-primary"></i> 導遊內行建議：
-          </div>
-          ${foundItem.guideTips}
-        </div>
-
-        <div class="space-y-2 mb-4 text-xs font-bold">
-          <div class="bg-paper p-2 rounded-lg border border-charcoal/20 flex items-center justify-between">
-            <span class="text-charcoal/70">必吃美食/特色：</span>
-            <span class="text-primary font-black">${foundItem.mustEat}</span>
-          </div>
-          <div class="bg-paper p-2 rounded-lg border border-charcoal/20 flex items-center justify-between">
-            <span class="text-charcoal/70">推薦必點/體驗：</span>
-            <span class="text-charcoal font-black">${foundItem.mustOrder}</span>
-          </div>
-          <div class="bg-paper p-2 rounded-lg border border-charcoal/20 flex items-center justify-between">
-            <span class="text-charcoal/70">推薦伴手禮：</span>
-            <span class="text-secondary font-black">${foundItem.mustBuy}</span>
-          </div>
-          <div class="bg-paper p-2 rounded-lg border border-charcoal/20 flex items-center justify-between">
-            <span class="text-charcoal/70">周邊美食推薦：</span>
-            <span class="text-charcoal font-black">${foundItem.localFood}</span>
-          </div>
-        </div>
-
-        ${foundItem.blogUrl ? `
-          <a href="${foundItem.blogUrl}" target="_blank" class="w-full flex items-center justify-center gap-2 bg-secondary text-white py-2.5 rounded-xl font-black text-xs solid-border shadow-kawaii-sm mb-3 active:translate-y-0.5">
-            <i data-lucide="external-link" class="w-4 h-4"></i> 閱讀部落客攻略：${foundItem.bloggerName}
-          </a>
-        ` : ''}
-
-        <a href="${foundItem.navUrl}" target="_blank" class="w-full flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-xl font-black text-sm solid-border shadow-kawaii-sm active:translate-y-0.5">
-          <i data-lucide="navigation" class="w-4 h-4"></i> 直接開啟 Google 地圖導航
-        </a>
       `;
-
-      lucide.createIcons();
 
       const backdrop = document.getElementById('modal-backdrop');
       const card = document.getElementById('modal-card');
@@ -884,23 +770,24 @@
         backdrop.classList.remove('opacity-0');
         card.classList.remove('translate-y-full');
       }, 10);
+
+      lucide.createIcons();
     }
 
-    // 關閉 Modal
     function closeModal() {
       const backdrop = document.getElementById('modal-backdrop');
       const card = document.getElementById('modal-card');
 
-      card.classList.add('translate-y-full');
       backdrop.classList.add('opacity-0');
-      
+      card.classList.add('translate-y-full');
+
       setTimeout(() => {
         backdrop.classList.add('hidden');
       }, 300);
     }
 
-    // 初始化頁面
-    window.onload = function() {
+    // 初始載入
+    window.onload = () => {
       switchTab('day1');
     };
   </script>
